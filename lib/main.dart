@@ -1,13 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:audio_service/audio_service.dart';
 
-void main() {
+
+late MyAudioHandler _audioHandler;
+
+
+Future<void> main() async {
+  _audioHandler = await AudioService.init(
+    builder: () => MyAudioHandler(),
+    config: const AudioServiceConfig(
+      androidNotificationChannelId: 'com.devpier.bocconi_radio.channel.audio',
+      androidNotificationChannelName: 'Radio Bocconi',
+      androidNotificationOngoing: true,
+    ),
+  );
+
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,13 +45,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  @override
+  void initState() {
+    _audioHandler.playFromUri(
+      Uri.parse('https://5e302ac334abf.streamlock.net/live/live.stream/playlist.m3u8')
+    );
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+    super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -49,22 +64,34 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+          children: const <Widget>[],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+        onPressed: () {
+          setState(() {
+            if (_audioHandler.playbackState.isPaused) {
+              _audioHandler.play();
+            } else {
+              _audioHandler.pause();
+            }
+          });
+        },
+        child: Icon(
+          _audioHandler.playbackState.isPaused ? Icons.play_arrow : Icons.pause,
+        ),
+      )
     );
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+}
+
+
+class MyAudioHandler 
+  extends BaseAudioHandler 
+  with QueueHandler, SeekHandler {
 }
