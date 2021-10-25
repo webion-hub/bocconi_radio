@@ -9,6 +9,10 @@ class Post {
   late final String description;
   late final DateTime? publishDate;
 
+  get hasImage => imageUrl != null;
+  get hasPublishDate => publishDate != null;
+
+
   Post.from(RssItem item) {
     final doc =
       parser.parse(item.description);
