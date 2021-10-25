@@ -18,10 +18,10 @@
 // flutter run
 
 import 'package:bocconi_radio/blog/blog.dart';
-import 'package:bocconi_radio/widget/blog/post_preview.dart';
+import 'package:bocconi_radio/widgets/blog/article_preview.dart';
 import 'package:flutter/material.dart';
 
-import 'blog/post.dart';
+import 'blog/article.dart';
 
 
 void main() {
@@ -42,11 +42,11 @@ class MyApp extends StatelessWidget {
 }
 
 class MainScreen extends StatelessWidget {
-  late final Stream<Iterable<Post>?> _posts;
+  late final Stream<Iterable<Article>?> _posts;
 
   MainScreen({Key? key}) : super(key: key) {
     _posts = Stream.fromFuture(
-      Blog.getPosts()
+      Blog.getArticles()
     );
   }
 
@@ -57,7 +57,7 @@ class MainScreen extends StatelessWidget {
         title: const Text('Blog Test'),
       ),
       body: Center(
-        child: StreamBuilder<Iterable<Post>?>(
+        child: StreamBuilder<Iterable<Article>?>(
           stream: _posts,
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
@@ -88,7 +88,7 @@ class MainScreen extends StatelessWidget {
               itemCount: posts.length,
               shrinkWrap: true,
               itemBuilder: (context, i) {
-                return PostPreview.from(posts.elementAt(i));
+                return ArticlePreview.from(posts.elementAt(i));
               }
             );
           }
