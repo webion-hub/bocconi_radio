@@ -36,6 +36,7 @@ dependencies:
   webfeed: ^0.7.0
   test:
   http:
+  html:
 
 dev_dependencies:
   flutter_test:
