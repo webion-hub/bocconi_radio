@@ -1,6 +1,6 @@
+import 'package:bocconi_radio/blog/post.dart';
 import 'package:test/test.dart';
 import 'package:bocconi_radio/blog/blog.dart';
-import 'package:webfeed/domain/rss_item.dart';
 
 void main() {
   group('Download posts', () {
@@ -36,10 +36,10 @@ void main() {
 }
 
 
-areThereSomePosts(List<RssItem>? posts) {
+areThereSomePosts(Iterable<Post>? posts) {
   expect(posts?.length, greaterThan(0));
   expect(posts?.isNotEmpty, isTrue);
-  expect(posts?.first.author, isNotNull);
+  expect(posts?.first.description, isNotNull);
 }
 
 
