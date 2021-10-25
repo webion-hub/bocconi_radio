@@ -18,6 +18,7 @@
 // flutter run
 
 import 'package:bocconi_radio/blog/blog.dart';
+import 'package:bocconi_radio/widget/blog/post_preview.dart';
 import 'package:flutter/material.dart';
 
 import 'blog/post.dart';
@@ -56,55 +57,41 @@ class MainScreen extends StatelessWidget {
         title: const Text('Blog Test'),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            StreamBuilder<Iterable<Post>?>(
-              stream: _posts,
-              builder: (context, snapshot) {
-                switch (snapshot.connectionState) {
-                  case ConnectionState.done:
-                    break;
+        child: StreamBuilder<Iterable<Post>?>(
+          stream: _posts,
+          builder: (context, snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.done:
+                break;
 
-                  case ConnectionState.waiting:
-                  default:
-                    return const Text('Loading...');
-                }
+              case ConnectionState.waiting:
+              default:
+                return const CircularProgressIndicator();
+            }
 
-                if (!snapshot.hasData) {
-                  return const Text('Nothing');
-                }
+            if (!snapshot.hasData) {
+              return const Text('Nothing');
+            }
+            
+            final posts =
+              snapshot.data;
 
-                final post =
-                  snapshot.data;
+            if (posts == null) {
+              return const Text('Null');
+            }
 
-                if (post == null) {
-                  return const Text('Null');
-                }
+            if (posts.isEmpty) {
+              return const Text('Empty list');
+            }
 
-                if (post.isEmpty) {
-                  return const Text('Empty list');
-                }
-
-                final p = post.first;
-                return Card(
-                  child: Column(
-                    children: [
-                      p.hasImage
-                        ? Image.network(p.imageUrl!)
-                        : const SizedBox.shrink(),
-
-                      p.hasPublishDate
-                        ? Text(p.publishDate!.toString())
-                        : const SizedBox.shrink(),
-
-                      Text(p.description),
-                    ],
-                  ),
-                );
+            return ListView.builder(
+              itemCount: posts.length,
+              shrinkWrap: true,
+              itemBuilder: (context, i) {
+                return PostPreview.from(posts.elementAt(i));
               }
-            ),
-          ],
+            );
+          }
         ),
       ),
     );
