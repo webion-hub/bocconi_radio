@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bocconi_radio/pages/webcam_page.dart';
 import 'package:bocconi_radio/widgets/bottom_bar.dart';
 import 'package:bocconi_radio/pages/home_page.dart';

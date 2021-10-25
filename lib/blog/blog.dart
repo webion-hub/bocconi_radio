@@ -1,10 +1,10 @@
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart' show Response;
 import 'package:webfeed/webfeed.dart';
-import 'package:bocconi_radio/blog/post.dart';
+import 'package:bocconi_radio/blog/article.dart';
 
 class Blog {
-  static Future<Iterable<Post>?> getPosts({
+  static Future<Iterable<Article>?> getArticles({
     int start = 0,
   }) async {
     final rssFeed = await _fetchRSSFeed(start);
@@ -12,7 +12,7 @@ class Blog {
 
     return channel
       .items
-      ?.map((e) => Post.from(e));
+      ?.map((e) => Article.from(e));
   }
 
 
