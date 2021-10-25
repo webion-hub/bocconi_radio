@@ -1,28 +1,7 @@
-// ignore_for_file: public_member_api_docs
-
-// FOR MORE EXAMPLES, VISIT THE GITHUB REPOSITORY AT:
-//
-//  https://github.com/ryanheise/audio_service
-//
-// This example implements a minimal audio handler that renders the current
-// media item and playback state to the system notification and responds to 4
-// media actions:
-//
-// - play
-// - pause
-// - seek
-// - stop
-//
-// To run this example, use:
-//
-// flutter run
-
-import 'package:bocconi_radio/blog/blog.dart';
-import 'package:bocconi_radio/widgets/blog/article_preview.dart';
+import 'package:bocconi_radio/pages/webcam_page.dart';
+import 'package:bocconi_radio/widgets/bottom_bar.dart';
+import 'package:bocconi_radio/pages/home_page.dart';
 import 'package:flutter/material.dart';
-
-import 'blog/article.dart';
-
 
 void main() {
   runApp(const MyApp());
@@ -30,70 +9,51 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
   @override
-  Widget build(BuildContext context) {    
+  Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Blog Test',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: MainScreen(),
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.red,
+      ),
+      home: const PageNavigator(),
     );
   }
 }
 
-class MainScreen extends StatelessWidget {
-  late final Stream<Iterable<Article>?> _posts;
+class PageNavigator extends StatefulWidget {
+  const PageNavigator({ Key? key }) : super(key: key);
 
-  MainScreen({Key? key}) : super(key: key) {
-    _posts = Stream.fromFuture(
-      Blog.getArticles()
-    );
-  }
+  @override
+  _PageNavigatorState createState() => _PageNavigatorState();
+}
+
+class _PageNavigatorState extends State<PageNavigator> {
+  int pageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+      Widget child = const HomePage();
+
+      switch (pageIndex) {
+        case 0:
+          child = const HomePage();
+          break;
+        case 1:
+          child = const WebcamPage();
+          break;
+      }
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Blog Test'),
+      bottomNavigationBar: BottomBar(
+        (index){
+          setState(() {
+            pageIndex = index;
+          });
+        }
       ),
-      body: Center(
-        child: StreamBuilder<Iterable<Article>?>(
-          stream: _posts,
-          builder: (context, snapshot) {
-            switch (snapshot.connectionState) {
-              case ConnectionState.done:
-                break;
-
-              case ConnectionState.waiting:
-              default:
-                return const CircularProgressIndicator();
-            }
-
-            if (!snapshot.hasData) {
-              return const Text('Nothing');
-            }
-            
-            final posts =
-              snapshot.data;
-
-            if (posts == null) {
-              return const Text('Null');
-            }
-
-            if (posts.isEmpty) {
-              return const Text('Empty list');
-            }
-
-            return ListView.builder(
-              itemCount: posts.length,
-              shrinkWrap: true,
-              itemBuilder: (context, i) {
-                return ArticlePreview.from(posts.elementAt(i));
-              }
-            );
-          }
-        ),
-      ),
+      appBar: AppBar(),
+      body: child
     );
   }
 }
