@@ -2,6 +2,7 @@ import 'package:html/dom.dart';
 import 'package:webfeed/webfeed.dart';
 import 'package:html/parser.dart' as parser;
 import 'package:collection/collection.dart';
+import 'package:bocconi_radio/extensions/iterable_extension.dart';
 
 
 class Post {
@@ -35,6 +36,6 @@ class Post {
       .getElementsByTagName('p')
       .where((e) => e.text.isNotEmpty)
       .map((e) => e.text)
-      .reduce((value, text) => value += text);
+      .accumulate((r, t) => r + t, '');
   }
 }
