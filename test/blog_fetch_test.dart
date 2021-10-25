@@ -1,28 +1,28 @@
-import 'package:bocconi_radio/blog/post.dart';
+import 'package:bocconi_radio/blog/article.dart';
 import 'package:test/test.dart';
 import 'package:bocconi_radio/blog/blog.dart';
 
 void main() {
-  group('Download posts', () {
-    test('Find recent posts', () async {
-      areThereSomePosts(
-        await Blog.getPosts()
+  group('Download articles', () {
+    test('Find recent articles', () async {
+      areThereSomeArticles(
+        await Blog.getArticles()
       );
     });
 
-    test('Find older posts', () async {
-      areThereSomePosts(
-        await Blog.getPosts(start: 40)
+    test('Find older articles', () async {
+      areThereSomeArticles(
+        await Blog.getArticles(start: 40)
       );
     });
 
-    test('Find no posts (end of pagination)', () async {
-      final posts = await Blog.getPosts(
+    test('Find no articles (end of pagination)', () async {
+      final articles = await Blog.getArticles(
         start: 2000,
       );
 
-      expect(posts?.length, equals(0));
-      expect(posts?.isEmpty, isTrue);
+      expect(articles?.length, equals(0));
+      expect(articles?.isEmpty, isTrue);
     });
 
     test('Acceptable download and parse time', () async {
@@ -36,10 +36,10 @@ void main() {
 }
 
 
-areThereSomePosts(Iterable<Post>? posts) {
-  expect(posts?.length, greaterThan(0));
-  expect(posts?.isNotEmpty, isTrue);
-  expect(posts?.first.description, isNotNull);
+areThereSomeArticles(Iterable<Article>? articles) {
+  expect(articles?.length, greaterThan(0));
+  expect(articles?.isNotEmpty, isTrue);
+  expect(articles?.first.description, isNotNull);
 }
 
 
@@ -51,6 +51,6 @@ Future<List<int>> download(int howMany) {
 
 Future<int> measureElapsed() async {
   var stopwatch = Stopwatch()..start();
-  await Blog.getPosts();
+  await Blog.getArticles();
   return stopwatch.elapsedMilliseconds;
 }

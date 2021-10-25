@@ -1,12 +1,12 @@
-import 'package:bocconi_radio/blog/post.dart' as blog;
+import 'package:bocconi_radio/blog/article.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
-class PostPreview extends StatelessWidget {
-  final blog.Post post;
+class ArticlePreview extends StatelessWidget {
+  final Article post;
   
-  const PostPreview.from(this.post, {
+  const ArticlePreview.from(this.post, {
     Key? key,
   }) : super(key: key);
 

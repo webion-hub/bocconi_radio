@@ -5,7 +5,7 @@ import 'package:collection/collection.dart';
 import 'package:bocconi_radio/extensions/iterable_extension.dart';
 
 
-class Post {
+class Article {
   late final String? imageUrl;
   late final String description;
   late final DateTime? publishDate;
@@ -14,7 +14,7 @@ class Post {
   get hasPublishDate => publishDate != null;
 
 
-  Post.from(RssItem item) {
+  Article.from(RssItem item) {
     final doc =
       parser.parse(item.description);
 
