@@ -33,16 +33,7 @@ class _PageNavigatorState extends State<PageNavigator> {
 
   @override
   Widget build(BuildContext context) {
-      Widget child = const HomePage();
-
-      switch (pageIndex) {
-        case 0:
-          child = const HomePage();
-          break;
-        case 1:
-          child = const WebcamPage();
-          break;
-      }
+    final child = _getPage();
 
     return Scaffold(
       bottomNavigationBar: BottomBar(
@@ -55,5 +46,14 @@ class _PageNavigatorState extends State<PageNavigator> {
       appBar: AppBar(),
       body: child
     );
+  }
+
+  Widget _getPage() {
+    const pages = {
+      0: HomePage(),
+      1: WebcamPage(),
+    };
+
+    return pages[pageIndex] ?? const HomePage();
   }
 }
