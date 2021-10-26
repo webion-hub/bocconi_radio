@@ -39,7 +39,7 @@ void main() {
 
       expect(article, isNotNull);
 
-      final content = await article?.content;
+      final content = await article?.loadContent();
       expect(content, isNotNull);
       expect(content, isNotEmpty);
     });

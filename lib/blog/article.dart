@@ -1,3 +1,4 @@
+import 'package:html/dom.dart';
 import 'package:webfeed/webfeed.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as parser;
@@ -5,30 +6,35 @@ import 'article_document.dart';
 
 
 class Article {
-  late final String title;
-  late final String? imageUrl;
-  late final String description;
-  late final DateTime publishDate;
-  late final Uri articleUrl;
+  final String title;
+  final String? imageUrl;
+  final String description;
+  final DateTime publishDate;
+  final Uri articleUrl;
 
   get hasImage {
     return imageUrl != null;
   }
 
 
-  Article.parse(RssItem item) {
-    final doc =
-      parser.parse(item.description);
+  Article.parse(RssItem item): this._(
+    item: item,
+    doc: parser.parse(item.description),
+  );
 
-    title = item.title!;
-    imageUrl = doc.maybeGetArticleImage();
-    description = doc.getArticleDescription();
-    publishDate = item.pubDate!;
+
+  Article._({
+    required RssItem item, 
+    required Document doc,
+  }):
+    title = item.title!,
+    imageUrl = doc.maybeGetArticleImage(),
+    description = doc.getArticleDescription(),
+    publishDate = item.pubDate!,
     articleUrl = Uri.parse(item.link!);
-  }
 
 
-  Future<String> get content {
+  Future<String> loadContent() {
     return http
       .get(articleUrl)
       .then((r) => parser.parse(r.body))
