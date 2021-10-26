@@ -2,12 +2,12 @@ import 'package:bocconi_radio/blog/article.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
 class ArticlePreview extends StatelessWidget {
   final Article post;
   
-  const ArticlePreview.from(this.post, {
+  const ArticlePreview.from({
     Key? key,
+    required this.post,
   }) : super(key: key);
 
 
@@ -27,7 +27,12 @@ class ArticlePreview extends StatelessWidget {
 
   Widget _getCover() {
     return post.hasImage
-      ? Image.network(post.imageUrl!)
+      ? Image.network(
+        post.imageUrl!,
+        loadingBuilder: (context, widget, chunk) {
+          return const LinearProgressIndicator();
+        },
+      )
       : const SizedBox.shrink();
   }
 
