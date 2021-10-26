@@ -14,7 +14,7 @@ class Article {
   get hasPublishDate => publishDate != null;
 
 
-  Article.from(RssItem item) {
+  Article.parse(RssItem item) {
     final doc =
       parser.parse(item.description);
 
@@ -27,7 +27,7 @@ class Article {
   String? _maybeGetImageSrc(Document doc) {
     return doc
       .getElementsByTagName('img')
-      .map((e) => e.attributes.remove('src'))
+      .map((e) => e.attributes['src'])
       .firstOrNull;
   }
 

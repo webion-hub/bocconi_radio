@@ -12,7 +12,7 @@ class Blog {
 
     return channel
       .items
-      ?.map((e) => Article.from(e));
+      ?.map((e) => Article.parse(e));
   }
 
 
