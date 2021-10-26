@@ -56,9 +56,33 @@ class Article {
   static String _parseArticle(Document doc) {
     return doc
       .getElementsByTagName('p')
-      .splitAfter((e) => e.classes.contains('project-desc')).skip(1).first
-      .splitBefore((e) => e.classes.contains('sliderfont3')).first
+      .getArticleParagraphs()
       .map((e) => e.text)
       .accumulate((p, c) => p + c, start: '');
+  }
+}
+
+
+extension ArticleDoc on Iterable<Element> {
+  Iterable<Element> getArticleParagraphs() {
+    return (
+       getParagraphsAfterTitle()
+      .getParagraphsBeforeEnding()
+    );
+  }
+  
+  Iterable<Element> getParagraphsAfterTitle() {
+    return ( 
+      splitAfter((e) => e.classes.contains('project-desc'))
+        .skip(1)
+        .first
+    );
+  }
+
+  Iterable<Element> getParagraphsBeforeEnding() {
+    return (
+      splitBefore((e) => e.classes.contains('sliderfont3'))
+        .first
+    );
   }
 }
