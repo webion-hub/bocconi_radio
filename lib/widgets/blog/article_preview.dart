@@ -37,8 +37,6 @@ class ArticlePreview extends StatelessWidget {
   }
 
   Widget _getPublishDate() {
-    return post.hasPublishDate
-      ? Text(post.publishDate!.toString())
-      : const SizedBox.shrink();
+    return Text(post.publishDate.toString());
   }
 }
