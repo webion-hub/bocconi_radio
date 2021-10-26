@@ -36,6 +36,6 @@ class Article {
       .getElementsByTagName('p')
       .where((e) => e.text.isNotEmpty)
       .map((e) => e.text)
-      .accumulate((r, t) => r + t, '');
+      .accumulate((r, t) => (r + t), start: '');
   }
 }
