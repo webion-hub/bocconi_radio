@@ -1,41 +1,43 @@
 import 'package:html/dom.dart';
 import 'package:webfeed/webfeed.dart';
+import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as parser;
-import 'package:collection/collection.dart';
-import 'package:bocconi_radio/extensions/iterable_extension.dart';
+import 'article_document.dart';
 
 
 class Article {
-  late final String? imageUrl;
-  late final String description;
-  late final DateTime? publishDate;
+  final String title;
+  final String? imageUrl;
+  final String description;
+  final DateTime publishDate;
+  final Uri articleUrl;
 
-  get hasImage => imageUrl != null;
-  get hasPublishDate => publishDate != null;
-
-
-  Article.from(RssItem item) {
-    final doc =
-      parser.parse(item.description);
-
-    imageUrl = _maybeGetImageSrc(doc);
-    description = _getDescription(doc);
-    publishDate = item.pubDate;
+  get hasImage {
+    return imageUrl != null;
   }
 
 
-  String? _maybeGetImageSrc(Document doc) {
-    return doc
-      .getElementsByTagName('img')
-      .map((e) => e.attributes.remove('src'))
-      .firstOrNull;
-  }
+  Article.parse(RssItem item): this._(
+    item: item,
+    doc: parser.parse(item.description),
+  );
 
-  String _getDescription(Document doc) {
-    return doc
-      .getElementsByTagName('p')
-      .where((e) => e.text.isNotEmpty)
-      .map((e) => e.text)
-      .accumulate((r, t) => (r + t), start: '');
+
+  Article._({
+    required RssItem item, 
+    required Document doc,
+  }):
+    title = item.title!,
+    imageUrl = doc.maybeGetArticleImage(),
+    description = doc.getArticleDescription(),
+    publishDate = item.pubDate!,
+    articleUrl = Uri.parse(item.link!);
+
+
+  Future<String> loadContent() {
+    return http
+      .get(articleUrl)
+      .then((r) => parser.parse(r.body))
+      .then((d) => d.getArticleContent());
   }
 }

@@ -32,6 +32,17 @@ void main() {
 
       expect(mean, lessThan(600));
     });
+
+    test('Content loads', () async {
+      final articles = await Blog.getArticles(); 
+      final article = articles?.first;
+
+      expect(article, isNotNull);
+
+      final content = await article?.loadContent();
+      expect(content, isNotNull);
+      expect(content, isNotEmpty);
+    });
   });
 }
 
