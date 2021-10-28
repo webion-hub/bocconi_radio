@@ -8,7 +8,7 @@ class BlogPreviewPage extends StatelessWidget {
 
   BlogPreviewPage({Key? key}) : super(key: key) {
     _articles = Stream.fromFuture(
-      Blog.getArticles()
+      Blog().getArticles()
     );
   }
 
