@@ -1,5 +1,5 @@
 import 'package:bocconi_radio/blog/article.dart';
-import 'package:bocconi_radio/blog/blog.dart';
+import 'package:bocconi_radio/blocs/blog.dart';
 import 'package:bocconi_radio/widgets/blog/article_preview.dart';
 import 'package:flutter/material.dart';
 

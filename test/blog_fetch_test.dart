@@ -1,6 +1,6 @@
 import 'package:bocconi_radio/blog/article.dart';
 import 'package:test/test.dart';
-import 'package:bocconi_radio/blog/blog.dart';
+import 'package:bocconi_radio/blocs/blog.dart';
 
 void main() {
   group('Download articles', () {
