@@ -1,4 +1,6 @@
-import 'package:bocconi_radio/pages/blog_preview_page.dart';
+import 'package:bocconi_radio/pages/webcam_page.dart';
+import 'package:bocconi_radio/widgets/bottom_bar.dart';
+import 'package:bocconi_radio/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,7 +17,44 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: BlogPreviewPage(),
+      home: const PageNavigator(),
     );
+  }
+}
+
+class PageNavigator extends StatefulWidget {
+  const PageNavigator({ Key? key }) : super(key: key);
+
+  @override
+  _PageNavigatorState createState() => _PageNavigatorState();
+}
+
+class _PageNavigatorState extends State<PageNavigator> {
+  int pageIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    final child = _getPage();
+
+    return Scaffold(
+      bottomNavigationBar: BottomBar(
+        (index){
+          setState(() {
+            pageIndex = index;
+          });
+        }
+      ),
+      appBar: AppBar(),
+      body: child
+    );
+  }
+
+  Widget _getPage() {
+    const pages = {
+      0: HomePage(),
+      1: WebcamPage(),
+    };
+
+    return pages[pageIndex] ?? const HomePage();
   }
 }
