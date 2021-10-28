@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bocconi_radio/pages/webcam_page.dart';
 import 'package:bocconi_radio/widgets/bottom_bar.dart';
 import 'package:bocconi_radio/pages/home_page.dart';
@@ -11,10 +9,11 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Blog test',
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
@@ -35,16 +34,7 @@ class _PageNavigatorState extends State<PageNavigator> {
 
   @override
   Widget build(BuildContext context) {
-      Widget child = const HomePage();
-
-      switch (pageIndex) {
-        case 0:
-          child = const HomePage();
-          break;
-        case 1:
-          child = const WebcamPage();
-          break;
-      }
+    final child = _getPage();
 
     return Scaffold(
       bottomNavigationBar: BottomBar(
@@ -57,5 +47,14 @@ class _PageNavigatorState extends State<PageNavigator> {
       appBar: AppBar(),
       body: child
     );
+  }
+
+  Widget _getPage() {
+    const pages = {
+      0: HomePage(),
+      1: WebcamPage(),
+    };
+
+    return pages[pageIndex] ?? const HomePage();
   }
 }
