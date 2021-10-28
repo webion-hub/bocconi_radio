@@ -5,9 +5,15 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text(
-        'Home',
+    return Container(
+      color: Colors.white,
+      child: Center(
+        child: ElevatedButton(
+          onPressed: (){
+            Navigator.of(context).pushNamed('/blog');
+          }, 
+          child: const Text("blog")
+        ),
       ),
     );
   }
