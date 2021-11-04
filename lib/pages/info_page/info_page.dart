@@ -1,3 +1,4 @@
+import 'package:bocconi_radio/pages/info_page/bocconi_radio_icons.dart';
 import 'package:bocconi_radio/widgets/info_title.dart';
 import 'package:bocconi_radio/widgets/theme_switch.dart';
 import 'package:flutter/material.dart';
@@ -14,17 +15,17 @@ class InfoPage extends StatelessWidget {
           InfoTitle(title: "Social"),                    
           ListTile(
             onTap: (){},
-            leading: const Icon(Icons.ac_unit),
+            leading: const Icon(BocconiRadio.facebook_squared),
             title: const Text("Facebook")
           ),
           ListTile(
             onTap: (){},
-            leading: const Icon(Icons.ac_unit),
+            leading: const Icon(BocconiRadio.twitter_squared),
             title: const Text("Twitter")
           ),
           ListTile(
             onTap: (){},
-            leading: const Icon(Icons.ac_unit),
+            leading: const Icon(BocconiRadio.youtube),
             title: const Text("Youtube")
           ),
           const Divider(),

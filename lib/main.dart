@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.light,
         backgroundColor: Colors.white,
       ),
-      themeMode: ThemeMode.dark,
+      themeMode: ThemeMode.light,
       home: const App(),
     );
   }
