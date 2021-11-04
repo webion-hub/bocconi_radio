@@ -5,15 +5,26 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Center(
-        child: ElevatedButton(
-          onPressed: (){
-            Navigator.of(context).pushNamed('/blog');
-          }, 
-          child: const Text("blog")
-        ),
+    return Center(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          IconButton(
+            onPressed: (){},
+            color: Theme.of(context).primaryColor,
+            icon: const Icon(Icons.skip_previous_rounded, size: 32),
+          ),
+          FloatingActionButton(
+            heroTag: "home-play-button",
+            child: const Icon(Icons.play_arrow_rounded, size: 28), 
+            onPressed: (){},
+          ),
+          IconButton(
+            onPressed: (){}, 
+            color: Theme.of(context).primaryColor,
+            icon: const Icon(Icons.skip_next_rounded, size: 32),
+          ),
+        ],
       ),
     );
   }

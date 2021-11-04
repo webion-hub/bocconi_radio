@@ -5,12 +5,9 @@ class BlogPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: const Center(
-        child: Text(
-          'Blog',
-        ),
+    return const Center(
+      child: Text(
+        'Blog',
       ),
     );
   }

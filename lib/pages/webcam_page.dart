@@ -5,12 +5,9 @@ class WebcamPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: const Center(
-        child: Text(
-          'Webcam',
-        ),
+    return const Center(
+      child: Text(
+        'Webcam',
       ),
     );
   }
