@@ -1,60 +1,35 @@
-import 'package:bocconi_radio/pages/webcam_page.dart';
-import 'package:bocconi_radio/widgets/bottom_bar.dart';
-import 'package:bocconi_radio/pages/home_page.dart';
+import 'package:bocconi_radio/widgets/app.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-  
+  final theme = ThemeData();
+
+  MyApp({Key? key}) : super(key: key);
+ 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Blog test',
+      title: 'Bocconi Radio',
+      darkTheme: ThemeData(
+        colorScheme: const ColorScheme.dark(
+          primary: Colors.red,
+          secondary: Colors.red,
+        ),
+        primaryColor: Colors.red,
+        brightness: Brightness.dark,
+        backgroundColor: const Color(0xFF212121),
+      ),
       theme: ThemeData(
         primarySwatch: Colors.red,
+        brightness: Brightness.light,
+        backgroundColor: Colors.white,
       ),
-      home: const PageNavigator(),
+      themeMode: ThemeMode.dark,
+      home: const App(),
     );
-  }
-}
-
-class PageNavigator extends StatefulWidget {
-  const PageNavigator({ Key? key }) : super(key: key);
-
-  @override
-  _PageNavigatorState createState() => _PageNavigatorState();
-}
-
-class _PageNavigatorState extends State<PageNavigator> {
-  int pageIndex = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    final child = _getPage();
-
-    return Scaffold(
-      bottomNavigationBar: BottomBar(
-        (index){
-          setState(() {
-            pageIndex = index;
-          });
-        }
-      ),
-      appBar: AppBar(),
-      body: child
-    );
-  }
-
-  Widget _getPage() {
-    const pages = {
-      0: HomePage(),
-      1: WebcamPage(),
-    };
-
-    return pages[pageIndex] ?? const HomePage();
   }
 }
