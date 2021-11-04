@@ -1,16 +1,11 @@
-
-import 'package:bocconi_radio/widgets/icon_button_with_label.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class BottomBar extends StatefulWidget {
-  String currentRoute;
-  GlobalKey<NavigatorState> navigatorKey;
-
-  BottomBar({
-    this.currentRoute = "",  
-    required this.navigatorKey,
-    Key? key
+  Function(int) onPressed;
+  BottomBar({ 
+    required this.onPressed, 
+    Key ? key 
   }) : super(key: key);
 
   @override
@@ -18,37 +13,36 @@ class BottomBar extends StatefulWidget {
 }
 
 class _BottomBarState extends State<BottomBar> {
+  int _selectedIndex = 0;
+ 
+  void _onItemTapped(int index) {
+    widget.onPressed(index);
+
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
 
-    bool isActive(String url){
-      return widget.currentRoute == url;
-    }
-
-    return BottomAppBar(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          IconButtonWithLabel(
-            active: isActive("/blog"),
-            onPressed: (){
-              if(isActive('/blog')){return;}
-              widget.navigatorKey.currentState?.pushNamed("/blog");
-            },
-            text: "Blog",
-            icon: Icons.feed_rounded     
-          ),
-          IconButtonWithLabel(
-            active: isActive("/webcam"),
-            onPressed: (){
-              if(isActive('/webcam')){return;}
-              widget.navigatorKey.currentState?.pushNamed('/webcam');
-            },
-            text: "Webcam",
-            icon: Icons.videocam_rounded   
-          ),
-        ],
-      ),
+    return BottomNavigationBar(
+      items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: Icon(Icons.radio_rounded),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.feed_rounded),
+          label: 'Blog',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.videocam_rounded),
+          label: 'Webcam',
+        ),
+      ],
+      currentIndex: _selectedIndex,
+      onTap: _onItemTapped,
     );
   }
 }
