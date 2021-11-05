@@ -1,4 +1,5 @@
 import 'package:bocconi_radio/pages/blog_page.dart';
+import 'package:bocconi_radio/pages/blog_preview_page.dart';
 import 'package:bocconi_radio/pages/webcam_page.dart';
 import 'package:bocconi_radio/widgets/bottom_bar.dart';
 import 'package:bocconi_radio/pages/home_page.dart';
@@ -19,10 +20,10 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
 
-    StatelessWidget getBody(int pageIndex){
+    Widget getBody(int pageIndex){
       const widgets = {
         0: HomePage(),
-        1: BlogPage(),
+        1: BlogPreviewPage(),
         2: WebcamPage(),
       };
 

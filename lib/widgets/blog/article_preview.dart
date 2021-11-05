@@ -3,11 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ArticlePreview extends StatelessWidget {
-  final Article post;
+  final Article article;
   
   const ArticlePreview.from({
     Key? key,
-    required this.post,
+    required this.article,
   }) : super(key: key);
 
 
@@ -18,7 +18,7 @@ class ArticlePreview extends StatelessWidget {
         children: [
           _getCover(),
           _getPublishDate(),
-          Text(post.description),
+          Text(article.description),
         ],
       ),
     );
@@ -26,17 +26,17 @@ class ArticlePreview extends StatelessWidget {
 
 
   Widget _getCover() {
-    return post.hasImage
+    return article.hasImage
       ? Image.network(
-        post.imageUrl!,
-        loadingBuilder: (context, widget, chunk) {
-          return const LinearProgressIndicator();
-        },
-      )
+          article.imageUrl!,
+          loadingBuilder: (context, widget, chunk) {
+            return const LinearProgressIndicator();
+          },
+        )
       : const SizedBox.shrink();
   }
 
   Widget _getPublishDate() {
-    return Text(post.publishDate.toString());
+    return Text(article.publishDate.toString());
   }
 }
