@@ -9,18 +9,18 @@ void main() {
 
     test('Find recent articles', () async {
       areThereSomeArticles(
-        await blog.getArticles()
+        await blog.fetchArticles()
       );
     });
 
     test('Find older articles', () async {
       areThereSomeArticles(
-        await blog.getArticles(start: 40)
+        await blog.fetchArticles(start: 40)
       );
     });
 
     test('Find no articles (end of pagination)', () async {
-      final articles = await blog.getArticles(
+      final articles = await blog.fetchArticles(
         start: 2000,
       );
 
@@ -37,7 +37,7 @@ void main() {
     });
 
     test('Content loads', () async {
-      final articles = await blog.getArticles(); 
+      final articles = await blog.fetchArticles(); 
       final article = articles?.first;
 
       expect(article, isNotNull);
@@ -65,6 +65,6 @@ Future<List<int>> download(Blog blog, int howMany) {
 
 Future<int> measureElapsed(Blog blog) async {
   var stopwatch = Stopwatch()..start();
-  await blog.getArticles();
+  await blog.fetchArticles();
   return stopwatch.elapsedMilliseconds;
 }
