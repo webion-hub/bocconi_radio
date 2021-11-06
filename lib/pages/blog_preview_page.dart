@@ -1,6 +1,7 @@
 import 'package:bocconi_radio/blog/article.dart';
 import 'package:bocconi_radio/blocs/blog.dart';
 import 'package:bocconi_radio/widgets/blog/article_preview.dart';
+import 'package:bocconi_radio/widgets/util.dart';
 import 'package:flutter/material.dart';
 
 
@@ -32,25 +33,25 @@ class _BlogPreviewState extends State<StatefulWidget> {
       ),
       floatingActionButton: Row(
         children: [
-          (showLeft 
-            ? FloatingActionButton(
-                heroTag: "prev",
-                child: const Icon(Icons.arrow_back),
-                onPressed: () {
-                  _fetchArticles(direction: -1);
-                },
-              )
-            : const SizedBox.shrink()
+          MaybeShow(
+            show: showLeft, 
+            child: FloatingActionButton(
+              heroTag: "prev",
+              child: const Icon(Icons.arrow_back),
+              onPressed: () {
+                _fetchArticles(direction: -1);
+              },
+            )
           ),
-          (showRight
-            ? FloatingActionButton(
-                heroTag: "next",
-                child: const Icon(Icons.arrow_forward),
-                onPressed: () {
-                  _fetchArticles(direction: 1);
-                },
-              )
-            : const SizedBox.shrink()
+          MaybeShow(
+            show: showRight,
+            child: FloatingActionButton(
+              heroTag: "next",
+              child: const Icon(Icons.arrow_forward),
+              onPressed: () {
+                _fetchArticles(direction: 1);
+              },
+            )
           ),
         ],
       ),
