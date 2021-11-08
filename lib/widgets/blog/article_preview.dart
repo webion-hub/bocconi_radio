@@ -1,5 +1,6 @@
 import 'package:bocconi_radio/blog/article.dart';
 import 'package:bocconi_radio/extensions/date_time_extension.dart';
+import 'package:bocconi_radio/widgets/util.dart';
 import 'package:flutter/material.dart';
 
 class ArticlePreview extends StatelessWidget {
@@ -22,7 +23,11 @@ class ArticlePreview extends StatelessWidget {
         children: [
           _getCover(),
           Container(
-            padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
+            padding: const EdgeInsets.only(
+              left: 16,
+              right: 16,
+              top: 8,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -46,25 +51,26 @@ class ArticlePreview extends StatelessWidget {
 
 
   Widget _getCover() {
-    return article.hasImage
-      ? Container(
-          constraints: const BoxConstraints( 
-            maxHeight: 150,
+    return MaybeShow(
+      show: article.hasImage,
+      child: Container(
+        constraints: const BoxConstraints( 
+          maxHeight: 150,
+        ),
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(8),
+            topRight: Radius.circular(8),
           ),
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(8),
-              topRight: Radius.circular(8),
-            ),
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: NetworkImage(
-                article.imageUrl!,
-              )
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            image: NetworkImage(
+              article.imageUrl!,
             )
-          ),
-        )
-      : const SizedBox.shrink();
+          )
+        ),
+      ) 
+    );
   }
 
   Widget _getPublishDate(context) {
@@ -81,7 +87,7 @@ class ArticlePreview extends StatelessWidget {
       overflow: TextOverflow.ellipsis,
       maxLines: 2,
     );
-  }  
+  }
 
   Widget _getTextPreview(context) {
     return Container(
@@ -93,5 +99,5 @@ class ArticlePreview extends StatelessWidget {
         maxLines: 3,
       ),
     );
-  }  
+  }
 }
