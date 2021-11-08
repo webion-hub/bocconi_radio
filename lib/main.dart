@@ -1,7 +1,9 @@
+import 'package:bocconi_radio/dependency_injection.dart';
 import 'package:bocconi_radio/widgets/app.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  configureDependencies();
   runApp(MyApp());
 }
 

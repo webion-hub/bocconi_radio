@@ -38,8 +38,13 @@ dependencies:
   http:
   html:
   rxdart: ^0.27.2
+  injectable:
+  get_it:
 
 dev_dependencies:
+  injectable_generator:
+  build_runner:
+
   flutter_test:
     sdk: flutter
 
