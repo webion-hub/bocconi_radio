@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class BottomBar extends StatefulWidget {
-  Function(int) onPressed;
-  BottomBar({ 
+  final Function(int) onPressed;
+  
+  const BottomBar({ 
     required this.onPressed, 
     Key ? key 
   }) : super(key: key);
@@ -17,7 +17,6 @@ class _BottomBarState extends State<BottomBar> {
  
   void _onItemTapped(int index) {
     widget.onPressed(index);
-
     setState(() {
       _selectedIndex = index;
     });
@@ -25,7 +24,6 @@ class _BottomBarState extends State<BottomBar> {
 
   @override
   Widget build(BuildContext context) {
-
     return BottomNavigationBar(
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
