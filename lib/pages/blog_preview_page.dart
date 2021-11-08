@@ -1,5 +1,7 @@
 import 'package:bocconi_radio/blog/article.dart';
 import 'package:bocconi_radio/blocs/blog.dart';
+import 'package:bocconi_radio/blog/blog_page_navigator.dart';
+import 'package:bocconi_radio/dependency_injection.dart';
 import 'package:bocconi_radio/widgets/blog/article_preview.dart';
 import 'package:bocconi_radio/widgets/util.dart';
 import 'package:flutter/material.dart';
@@ -14,14 +16,10 @@ class BlogPreviewPage extends StatefulWidget {
 }
 
 class _BlogPreviewState extends State<StatefulWidget> {
-  final _blog = Blog();
-  bool showLeft = false;
-  bool showRight = true;
-  int currentOffset = 0;
-
+  final _blogNavigator = BlogPageNavigator(getIt<Blog>());
 
   _BlogPreviewState() {
-    _blog.fetchArticles();
+    _blogNavigator.fetchNextArticles();
   }
 
 
@@ -34,29 +32,29 @@ class _BlogPreviewState extends State<StatefulWidget> {
       floatingActionButton: Row(
         children: [
           MaybeShow(
-            show: showLeft, 
+            show: _blogNavigator.showLeft,
             child: FloatingActionButton(
               heroTag: "prev",
               child: const Icon(Icons.arrow_back),
               onPressed: () {
-                _fetchArticles(direction: -1);
+                _blogNavigator.fetchNextArticles();
               },
             )
           ),
           MaybeShow(
-            show: showRight,
+            show: _blogNavigator.showRight,
             child: FloatingActionButton(
               heroTag: "next",
               child: const Icon(Icons.arrow_forward),
               onPressed: () {
-                _fetchArticles(direction: 1);
+                _blogNavigator.fetchNextArticles();
               },
             )
           ),
         ],
       ),
       body: StreamBuilder<Iterable<Article>>(
-        stream: _blog.articles,
+        stream: _blogNavigator.blog.articles,
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
@@ -91,24 +89,5 @@ class _BlogPreviewState extends State<StatefulWidget> {
         }
       ),
     );
-  }
-
-
-  void _fetchArticles({
-    required int direction
-  }) async {
-    setState(() {
-      currentOffset += direction * 12;
-    });
-
-    _blog.fetchArticles(
-      start: currentOffset,
-    );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _blog.dispose();
   }
 }
