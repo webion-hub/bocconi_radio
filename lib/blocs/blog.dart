@@ -1,12 +1,15 @@
-import 'package:http/http.dart' as http;
-import 'package:http/http.dart' show Response;
+import 'package:http/http.dart' show Response, Client;
+import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:webfeed/webfeed.dart';
 import 'package:bocconi_radio/blog/article.dart';
 
-class Blog {
-  final _articlesWatcher = PublishSubject<Iterable<Article>>();
 
+@singleton
+class Blog {
+  final _client = Client();
+  final _articlesWatcher = 
+    PublishSubject<Iterable<Article>>();
 
   Stream<Iterable<Article>> get articles {
     return _articlesWatcher.stream;
@@ -18,17 +21,15 @@ class Blog {
   }) async {
     final rssFeed = await _fetchRSSFeed(start);
     final channel = RssFeed.parse(rssFeed.body);
-    final articles = channel
-      .items
-      ?.map((e) => Article.parse(e));
+    final articles = _parseItems(channel);
 
     _tryPushArticles(articles);
     return articles;
   }
 
 
-  static Future<Response> _fetchRSSFeed(int start) {
-    return http.get(
+  Future<Response> _fetchRSSFeed(int start) {
+    return _client.get(
       Uri.https(
         'www.radiobocconi.it',
         '/index.php/blog',
@@ -45,6 +46,13 @@ class Blog {
     };
   }
 
+
+  static Iterable<Article>? _parseItems(RssFeed feed) {
+    return feed
+      .items
+      ?.map((e) => Article.parse(e));
+  }
+
   
   void _tryPushArticles(Iterable<Article>? articles) {
     if (articles == null) {
@@ -56,6 +64,7 @@ class Blog {
   }
 
 
+  @disposeMethod
   dispose() {
     _articlesWatcher.close();
   }
