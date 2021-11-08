@@ -8,11 +8,12 @@ class InfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      padding: const EdgeInsets.only(top: 16),
       height: MediaQuery.of(context).size.height - 116,
       child: ListView(
         children: [
-          InfoTitle(title: "Social"),                    
+          InfoTitle(title: "Social"),
           ListTile(
             onTap: (){},
             leading: const Icon(BocconiRadio.facebook_squared),

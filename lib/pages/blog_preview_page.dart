@@ -26,9 +26,6 @@ class _BlogPreviewState extends State<StatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Blog Test'),
-      ),
       floatingActionButton: Row(
         children: [
           MaybeShow(

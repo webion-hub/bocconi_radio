@@ -12,13 +12,13 @@ class InfoTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16), 
+      padding: const EdgeInsets.symmetric(horizontal: 16), 
       child: Text(
         title,
         style: TextStyle(
           color: Theme.of(context).primaryColor,
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
+          fontSize: Theme.of(context).textTheme.subtitle1?.fontSize,
+          fontWeight: FontWeight.bold
         ),
       ),
     );
