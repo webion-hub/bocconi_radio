@@ -1,4 +1,3 @@
-import 'package:bocconi_radio/pages/blog_page.dart';
 import 'package:bocconi_radio/pages/blog_preview_page.dart';
 import 'package:bocconi_radio/pages/webcam_page.dart';
 import 'package:bocconi_radio/widgets/bottom_bar.dart';
