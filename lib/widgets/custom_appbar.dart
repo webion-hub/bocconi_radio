@@ -1,4 +1,4 @@
-import 'package:bocconi_radio/pages/info_page/info_page.dart';
+import 'package:bocconi_radio/pages/info_page.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppbar extends StatelessWidget with PreferredSizeWidget{
