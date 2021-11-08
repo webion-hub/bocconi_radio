@@ -22,7 +22,7 @@ class CustomAppbar extends StatelessWidget with PreferredSizeWidget{
               ),
               context: context,
               builder: (BuildContext context) {
-                return const InfoPage(); 
+                return const InfoPage();
               },
             );
           }, 

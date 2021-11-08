@@ -1,5 +1,5 @@
 import 'package:bocconi_radio/blog/article.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:bocconi_radio/extensions/date_time_extension.dart';
 import 'package:flutter/material.dart';
 
 class ArticlePreview extends StatelessWidget {
@@ -10,28 +10,6 @@ class ArticlePreview extends StatelessWidget {
     required this.article,
   }) : super(key: key);
 
-
-  String convertDateTime(DateTime date){
-    String month = [
-      "Gen",
-      "Feb",
-      "Mar",
-      "Apr",
-      "Mag",
-      "Giu",
-      "Lug",
-      "Ago",
-      "Set",
-      "Ott",
-      "Nov",
-      "Dic",
-    ][date.month - 1];
-
-    String day = date.day.toString();
-    String year = date.year.toString(); 
-
-    return '$day $month $year';
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +69,7 @@ class ArticlePreview extends StatelessWidget {
 
   Widget _getPublishDate(context) {
     return Text(
-      convertDateTime(article.publishDate),
+      article.publishDate.toShortString(),
       style: Theme.of(context).textTheme.caption,
     );
   }
