@@ -11,7 +11,7 @@ class PositionData {
   final Duration bufferedPosition;
   final Duration duration;
 
-  PositionData(this.position, this.bufferedPosition, this.duration);
+  const PositionData(this.position, this.bufferedPosition, this.duration);
 }
 
 class SeekBar extends StatefulWidget {
@@ -21,13 +21,14 @@ class SeekBar extends StatefulWidget {
   final ValueChanged<Duration>? onChanged;
   final ValueChanged<Duration>? onChangeEnd;
 
-  SeekBar({
+  const SeekBar({
+    Key? key,
     required this.duration,
     required this.position,
     this.bufferedPosition = Duration.zero,
     this.onChanged,
     this.onChangeEnd,
-  });
+  }) : super(key: key);
 
   @override
   _SeekBarState createState() => _SeekBarState();
@@ -53,9 +54,11 @@ class _SeekBarState extends State<SeekBar> {
       _dragValue ?? widget.position.inMilliseconds.toDouble(),
       widget.duration.inMilliseconds.toDouble(),
     );
+
     if (_dragValue != null && !_dragging) {
       _dragValue = null;
     }
+
     return Stack(
       children: [
         SliderTheme(
@@ -86,17 +89,15 @@ class _SeekBarState extends State<SeekBar> {
               if (!_dragging) {
                 _dragging = true;
               }
+
               setState(() {
                 _dragValue = value;
               });
-              if (widget.onChanged != null) {
-                widget.onChanged!(Duration(milliseconds: value.round()));
-              }
+
+              widget.onChanged?.call(Duration(milliseconds: value.round()));
             },
             onChangeEnd: (value) {
-              if (widget.onChangeEnd != null) {
-                widget.onChangeEnd!(Duration(milliseconds: value.round()));
-              }
+              widget.onChangeEnd?.call(Duration(milliseconds: value.round()));
               _dragging = false;
             },
           ),
@@ -105,11 +106,10 @@ class _SeekBarState extends State<SeekBar> {
           right: 16.0,
           bottom: 0.0,
           child: Text(
-              RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
-                      .firstMatch("$_remaining")
-                      ?.group(1) ??
-                  '$_remaining',
-              style: Theme.of(context).textTheme.caption),
+            RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
+              .firstMatch("$_remaining")
+              ?.group(1) ?? '$_remaining',
+            style: Theme.of(context).textTheme.caption),
         ),
       ],
     );
@@ -455,11 +455,14 @@ void showSliderDialog({
           height: 100.0,
           child: Column(
             children: [
-              Text('${snapshot.data?.toStringAsFixed(1)}$valueSuffix',
-                  style: const TextStyle(
-                      fontFamily: 'Fixed',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24.0)),
+              Text(
+                '${snapshot.data?.toStringAsFixed(1)}$valueSuffix',
+                style: const TextStyle(
+                  fontFamily: 'Fixed',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24.0
+                )
+              ),
               Slider(
                 divisions: divisions,
                 min: min,
