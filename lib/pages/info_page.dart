@@ -76,9 +76,9 @@ class InfoPage extends StatelessWidget {
 
 
 class SocialRedirects {
-  static facebook() => _launchUrl('https://facebook.com');
-  static twitter() => _launchUrl('https://twitter.com');
-  static youtube() => _launchUrl('https://youtube.com');
+  static facebook() => _launchUrl('https://m.facebook.com/radiobocconi');
+  static twitter() => _launchUrl('https://twitter.com/radiobocconi');
+  static youtube() => _launchUrl('https://www.youtube.com/c/radiobocconiplayitloud');
   static website() => _launchUrl('https://radiobocconi.it');
   static email() => _launchUrl('mailto:radio@radiobocconi.it');
   static maps() => _launchUrl('geo:0,0?q=Via Bocconi, 12 Milano');
