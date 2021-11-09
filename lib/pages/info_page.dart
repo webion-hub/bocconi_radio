@@ -2,6 +2,7 @@ import 'package:bocconi_radio/widgets/info/bocconi_radio_icons.dart';
 import 'package:bocconi_radio/widgets/info/info_title.dart';
 import 'package:bocconi_radio/widgets/theme_switch.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class InfoPage extends StatelessWidget {
   const InfoPage({ Key? key }) : super(key: key);
@@ -12,66 +13,81 @@ class InfoPage extends StatelessWidget {
       padding: const EdgeInsets.only(top: 16),
       height: MediaQuery.of(context).size.height - 116,
       child: ListView(
-        children: [
+        children: const[
           InfoTitle(title: "Social"),
           ListTile(
-            onTap: (){},
-            leading: const Icon(BocconiRadio.facebook_squared),
-            title: const Text("Facebook")
+            onTap: SocialRedirects.facebook,
+            leading: Icon(BocconiRadio.facebook_squared),
+            title: Text("Facebook")
           ),
           ListTile(
-            onTap: (){},
-            leading: const Icon(BocconiRadio.twitter_squared),
-            title: const Text("Twitter")
+            onTap: SocialRedirects.twitter,
+            leading: Icon(BocconiRadio.twitter_squared),
+            title: Text("Twitter")
           ),
           ListTile(
-            onTap: (){},
-            leading: const Icon(BocconiRadio.youtube),
-            title: const Text("Youtube")
+            onTap: SocialRedirects.youtube,
+            leading: Icon(BocconiRadio.youtube),
+            title: Text("Youtube")
           ),
-          const Divider(),
+          
+          Divider(),
+          
           InfoTitle(title: "Contatti"), 
           ListTile(
-            onTap: (){},
-            leading: const Icon(Icons.language_rounded),
-            title: const Text("radiobocconi.it"),
+            onTap: SocialRedirects.website,
+            leading: Icon(Icons.language_rounded),
+            title: Text("radiobocconi.it"),
           ),
           ListTile(
-            onTap: (){},
-            leading: const Icon(Icons.email_rounded),
-            title: const Text("radio@radiobocconi.it")
+            onTap: SocialRedirects.email,
+            leading: Icon(Icons.email_rounded),
+            title: Text("radio@radiobocconi.it")
           ),
           ListTile(
-            onTap: (){},
-            leading: const Icon(Icons.call_rounded),
-            title: const Text("+39 0258365005")
+            onTap: SocialRedirects.tel,
+            leading: Icon(Icons.call_rounded),
+            title: Text("+39 0258365005")
           ),
           ListTile(
-            onTap: (){},
-            leading: const Icon(Icons.business_rounded),
-            title: const Text("via Bocconi, 12 Milano")
+            onTap: SocialRedirects.maps,
+            leading: Icon(Icons.business_rounded),
+            title: Text("Via Bocconi, 12 Milano")
           ),
-          InfoTitle(title: "Licenze"), 
+          InfoTitle(title: "Licenze"),
           ListTile(
-            onTap: (){},
-            title: const Text("SIAE n. 1187/I/264")
+            title: Text("SIAE n. 1187/I/264")
           ),
           ListTile(
-            onTap: (){},
-            title: const Text("SCF n. 170/08")
+            title: Text("SCF n. 170/08")
           ),
-          const Divider(),
+          
+          Divider(),
+          
           InfoTitle(title: "Tema"), 
           ListTile(
-            title: Row(
-              children: const [
-                ThemeSwitch(),
-                Text("Dark Mode")
-              ],
-            ),
-          )
+            title: ThemeSwitch(),
+          ),
         ],
       )
     );
+  }
+}
+
+
+class SocialRedirects {
+  static facebook() => _launchUrl('https://facebook.com');
+  static twitter() => _launchUrl('https://twitter.com');
+  static youtube() => _launchUrl('https://youtube.com');
+  static website() => _launchUrl('https://radiobocconi.it');
+  static email() => _launchUrl('mailto:radio@radiobocconi.it');
+  static maps() => _launchUrl('geo:0,0?q=Via Bocconi, 12 Milano');
+  static tel() => _launchUrl('tel:+39 0258365005');
+
+  static void _launchUrl(final String url) async {
+    final ok = await canLaunch(url);
+    if (ok) {
+      await launch(url);
+    }
   }
 }

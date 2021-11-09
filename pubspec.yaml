@@ -40,6 +40,7 @@ dependencies:
   rxdart: ^0.27.2
   injectable:
   get_it:
+  url_launcher:
 
 dev_dependencies:
   injectable_generator:
