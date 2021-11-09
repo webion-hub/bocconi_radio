@@ -1,11 +1,12 @@
 
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 
 @singleton
 class AppTheme {
   final _updateStream =
-    BehaviorSubject.seeded(ThemeMode.ligth);
+    BehaviorSubject.seeded(ThemeMode.light);
 
   Stream<ThemeMode> get values {
     return _updateStream.stream;
@@ -17,9 +18,9 @@ class AppTheme {
 
   void toggle() {
     update(
-      _updateStream.value == ThemeMode.ligth
+      _updateStream.value == ThemeMode.light
         ? ThemeMode.dark
-        : ThemeMode.ligth
+        : ThemeMode.light
     );
   }
 
@@ -31,18 +32,12 @@ class AppTheme {
     update(
       darkMode
         ? ThemeMode.dark
-        : ThemeMode.ligth
+        : ThemeMode.light
     );
   }
 }
 
-
-enum ThemeMode {
-  ligth,
-  dark,
-}
-
 extension ThemeModeExtension on ThemeMode {
   bool get isDark => this == ThemeMode.dark;
-  bool get isLight => this == ThemeMode.ligth;
+  bool get isLight => this == ThemeMode.light;
 }

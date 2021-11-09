@@ -16,7 +16,7 @@ class _ThemeSwitchState extends State<ThemeSwitch> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<app_theme.ThemeMode>(
+    return StreamBuilder<ThemeMode>(
       stream: _appTheme.values,
       builder: (context, snapshot) {
         final value =
