@@ -1,3 +1,6 @@
+import 'package:bocconi_radio/blocs/app_theme.dart' as app_theme;
+import 'package:bocconi_radio/blocs/app_theme.dart';
+import 'package:bocconi_radio/dependency_injection.dart';
 import 'package:flutter/material.dart';
 
 class ThemeSwitch extends StatefulWidget {
@@ -9,17 +12,22 @@ class ThemeSwitch extends StatefulWidget {
 }
 
 class _ThemeSwitchState extends State<ThemeSwitch> {
-  bool darkMode = false;
+  final _appTheme = getIt<AppTheme>();
 
   @override
   Widget build(BuildContext context) {
-    return Switch(
-      activeColor: Theme.of(context).primaryColor,
-      value: darkMode, 
-      onChanged: (status){
-        setState(() {
-          darkMode = status;
-        });
+    return StreamBuilder<app_theme.ThemeMode>(
+      stream: _appTheme.values,
+      builder: (context, snapshot) {
+        return SwitchListTile(
+          title: const Text('Tema scuro'),
+          secondary: const Icon(Icons.dark_mode_rounded),
+          activeColor: Theme.of(context).primaryColor,
+          value: snapshot.data?.isDark ?? false,
+          onChanged: (value) {
+            _appTheme.hasDarkMode = value;
+          }
+        );
       }
     );
   }

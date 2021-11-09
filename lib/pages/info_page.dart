@@ -65,9 +65,7 @@ class InfoPage extends StatelessWidget {
           Divider(),
           
           InfoTitle(title: "Tema"), 
-          ListTile(
-            title: ThemeSwitch(),
-          ),
+          ThemeSwitch(),
         ],
       )
     );
