@@ -6,28 +6,30 @@ class CustomAppbar extends StatelessWidget with PreferredSizeWidget{
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      automaticallyImplyLeading: false,
-      actions: [
-        IconButton(
-          icon: const Icon(Icons.info_rounded),
-          onPressed: (){
-            showModalBottomSheet(
-              isScrollControlled: true,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(16), 
-                  topRight: Radius.circular(16)
-                )
-              ),
-              context: context,
-              builder: (BuildContext context) {
-                return const InfoPage();
-              },
-            );
-          }, 
-        )
-      ],
+    return Hero(
+      tag: "appbar",
+      child: AppBar(
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.info_rounded),
+            onPressed: (){
+              showModalBottomSheet(
+                isScrollControlled: true,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(16), 
+                    topRight: Radius.circular(16)
+                  )
+                ),
+                context: context,
+                builder: (BuildContext context) {
+                  return const InfoPage();
+                },
+              );
+            }, 
+          )
+        ],
+      ),
     );
   }
 

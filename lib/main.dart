@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
             brightness: Brightness.light,
             backgroundColor: Colors.white,
           ),
-          themeMode: snapshot.data!,
+          themeMode: snapshot.data ?? ThemeMode.light,
           home: const App(),
         );
       }
