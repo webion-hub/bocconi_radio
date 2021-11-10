@@ -17,8 +17,7 @@ class ArticlePreview extends StatefulWidget {
 }
 
 class _ArticlePreviewState extends State<ArticlePreview> {
-  bool imageLoaded = false;
-  BehaviorSubject _streamImageLoader = BehaviorSubject<bool>();
+  final _streamImageLoader = BehaviorSubject<bool>();
 
   @override
   Widget build(BuildContext context) {
