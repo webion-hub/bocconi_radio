@@ -73,9 +73,7 @@ class _ArticlePreviewState extends State<ArticlePreview> {
     return MaybeShow(
       show: widget.article.hasImage,
       child: Container(
-        constraints: const BoxConstraints( 
-          maxHeight: 200,
-        ),
+        height: 200,
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(8),
@@ -92,14 +90,10 @@ class _ArticlePreviewState extends State<ArticlePreview> {
           builder: (context, AsyncSnapshot snapshot){
             return MaybeShow(
               show: !snapshot.data, 
-              child: Container(
-                color: Theme.of(context).dividerColor,
-                height: 200,
-                child: const Center(
-                  child: CircularProgressIndicator()
-                ),
+              child: const Center(
+                child: CircularProgressIndicator()
               ),
-              alternativeChild: Container(height: 200),
+              alternativeChild: Container(),
             );
           },
         ),
