@@ -41,6 +41,7 @@ dependencies:
   injectable:
   get_it:
   url_launcher:
+  shared_preferences:
 
 dev_dependencies:
   injectable_generator:

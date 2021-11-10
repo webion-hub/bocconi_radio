@@ -1,4 +1,4 @@
-import 'package:bocconi_radio/blocs/app_theme.dart' as app_theme;
+import 'package:bocconi_radio/extensions/theme_mode_extension.dart';
 import 'package:bocconi_radio/blocs/app_theme.dart';
 import 'package:bocconi_radio/dependency_injection.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +28,7 @@ class _ThemeSwitchState extends State<ThemeSwitch> {
           activeColor: Theme.of(context).primaryColor,
           value: value,
           onChanged: (value) {
-            _appTheme.hasDarkMode = value;
+            _appTheme.useDarkMode(value);
           }
         );
       }
