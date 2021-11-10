@@ -5,11 +5,11 @@ import 'package:rxdart/rxdart.dart';
 
 @singleton
 class AppTheme {
-  final _updateStream =
+  final _updateSubject =
     BehaviorSubject.seeded(ThemeMode.light);
 
-  Stream<ThemeMode> get values {
-    return _updateStream.stream;
+  Stream<ThemeMode> get stream {
+    return _updateSubject.stream;
   }
 
 
@@ -18,14 +18,14 @@ class AppTheme {
 
   void toggle() {
     update(
-      _updateStream.value == ThemeMode.light
+      _updateSubject.value == ThemeMode.light
         ? ThemeMode.dark
         : ThemeMode.light
     );
   }
 
   void update(ThemeMode newTheme) {
-    _updateStream.add(newTheme);
+    _updateSubject.add(newTheme);
   }
 
   void _setMode(bool darkMode) {

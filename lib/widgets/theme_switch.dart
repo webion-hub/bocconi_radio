@@ -17,7 +17,7 @@ class _ThemeSwitchState extends State<ThemeSwitch> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<ThemeMode>(
-      stream: _appTheme.values,
+      stream: _appTheme.stream,
       builder: (context, snapshot) {
         final value =
           snapshot.data?.isDark ?? false;

@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<ThemeMode>(
-      stream: _appTheme.values,
+      stream: _appTheme.stream,
       builder: (context, snapshot) {
         return MaterialApp(
           title: 'Bocconi Radio',
