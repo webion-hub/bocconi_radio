@@ -16,14 +16,17 @@ class _ThemeSwitchState extends State<ThemeSwitch> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<app_theme.ThemeMode>(
+    return StreamBuilder<ThemeMode>(
       stream: _appTheme.values,
       builder: (context, snapshot) {
+        final value =
+          snapshot.data?.isDark ?? false;
+        
         return SwitchListTile(
           title: const Text('Tema scuro'),
           secondary: const Icon(Icons.dark_mode_rounded),
           activeColor: Theme.of(context).primaryColor,
-          value: snapshot.data?.isDark ?? false,
+          value: value,
           onChanged: (value) {
             _appTheme.hasDarkMode = value;
           }
