@@ -7,8 +7,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 @lazySingleton
 class AppTheme {
+  static const $default = ThemeMode.system;
+
   final _preferences = getIt.getAsync<SharedPreferences>();
-  final _updateSubject = BehaviorSubject<ThemeMode>();
+  final _updateSubject = BehaviorSubject.seeded($default);
 
   Stream<ThemeMode> get stream {
     return _updateSubject.stream;

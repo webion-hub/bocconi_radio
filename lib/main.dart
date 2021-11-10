@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamBuilder<ThemeMode>(
       stream: _appTheme.stream,
-      initialData: ThemeMode.system,
+      initialData: AppTheme.$default,
       builder: (context, snapshot) {
         return MaterialApp(
           title: 'Bocconi Radio',
@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
             brightness: Brightness.light,
             backgroundColor: Colors.white,
           ),
-          themeMode: snapshot.data ?? ThemeMode.light,
+          themeMode: snapshot.data ?? AppTheme.$default,
           home: const App(),
         );
       }
