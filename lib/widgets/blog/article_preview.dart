@@ -1,8 +1,9 @@
 import 'package:bocconi_radio/blog/article.dart';
 import 'package:bocconi_radio/extensions/date_time_extension.dart';
+import 'package:bocconi_radio/pages/article_page.dart';
+import 'package:bocconi_radio/widgets/image_with_loading.dart';
 import 'package:bocconi_radio/widgets/util.dart';
 import 'package:flutter/material.dart';
-import 'package:rxdart/subjects.dart';
 
 class ArticlePreview extends StatefulWidget {
   final Article article;
@@ -17,7 +18,6 @@ class ArticlePreview extends StatefulWidget {
 }
 
 class _ArticlePreviewState extends State<ArticlePreview> {
-  final _streamImageLoader = BehaviorSubject<bool>();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,10 @@ class _ArticlePreviewState extends State<ArticlePreview> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          _getCover(),
+          Hero(
+            tag: 'article-image-${widget.article.title}',
+            child: _getCover(),
+          ),
           Container(
             padding: const EdgeInsets.only(
               left: 16,
@@ -47,8 +50,13 @@ class _ArticlePreviewState extends State<ArticlePreview> {
           Container(
             padding: const EdgeInsets.only(right: 8),
             child: TextButton(
-              onPressed: () {},
               child: const Text('APRI'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ArticlePage(article: widget.article)),
+                );
+              },
             ),
           )
         ],
@@ -57,46 +65,16 @@ class _ArticlePreviewState extends State<ArticlePreview> {
   }
 
   Widget _getCover() {
-    final image = NetworkImage(
-      widget.article.imageUrl!,
-    );
-
-    image.resolve(const ImageConfiguration()).addListener(
-      ImageStreamListener(
-        (info, call) {
-          _streamImageLoader.add(true);
-        },
-      ),
-    );
-
     return MaybeShow(
       show: widget.article.hasImage,
-      child: Container(
+      child: ImageWithLoading(
         height: 200,
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(8),
-            topRight: Radius.circular(8),
-          ),
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: image
-          )
-        ),
-        child: StreamBuilder(
-          stream: _streamImageLoader,
-          initialData: false,
-          builder: (context, AsyncSnapshot snapshot){
-            return MaybeShow(
-              show: !snapshot.data, 
-              child: const Center(
-                child: CircularProgressIndicator()
-              ),
-              alternativeChild: Container(),
-            );
-          },
-        ),
-      ) 
+        src: widget.article.imageUrl!,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(8),
+          topRight: Radius.circular(8),
+        )
+      )
     );
   }
 
