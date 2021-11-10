@@ -2,8 +2,9 @@ import 'package:bocconi_radio/blog/article.dart';
 import 'package:bocconi_radio/extensions/date_time_extension.dart';
 import 'package:bocconi_radio/widgets/util.dart';
 import 'package:flutter/material.dart';
+import 'package:rxdart/subjects.dart';
 
-class ArticlePreview extends StatelessWidget {
+class ArticlePreview extends StatefulWidget {
   final Article article;
   
   const ArticlePreview.from({
@@ -11,6 +12,13 @@ class ArticlePreview extends StatelessWidget {
     required this.article,
   }) : super(key: key);
 
+  @override
+  State<ArticlePreview> createState() => _ArticlePreviewState();
+}
+
+class _ArticlePreviewState extends State<ArticlePreview> {
+  bool imageLoaded = false;
+  BehaviorSubject _streamImageLoader = BehaviorSubject<bool>();
 
   @override
   Widget build(BuildContext context) {
@@ -49,13 +57,24 @@ class ArticlePreview extends StatelessWidget {
     );
   }
 
-
   Widget _getCover() {
+    final image = NetworkImage(
+      widget.article.imageUrl!,
+    );
+
+    image.resolve(const ImageConfiguration()).addListener(
+      ImageStreamListener(
+        (info, call) {
+          _streamImageLoader.add(true);
+        },
+      ),
+    );
+
     return MaybeShow(
-      show: article.hasImage,
+      show: widget.article.hasImage,
       child: Container(
         constraints: const BoxConstraints( 
-          maxHeight: 150,
+          maxHeight: 200,
         ),
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.only(
@@ -64,10 +83,25 @@ class ArticlePreview extends StatelessWidget {
           ),
           image: DecorationImage(
             fit: BoxFit.cover,
-            image: NetworkImage(
-              article.imageUrl!,
-            )
+            image: image
           )
+        ),
+        child: StreamBuilder(
+          stream: _streamImageLoader,
+          initialData: false,
+          builder: (context, AsyncSnapshot snapshot){
+            return MaybeShow(
+              show: !snapshot.data, 
+              child: Container(
+                color: Theme.of(context).dividerColor,
+                height: 200,
+                child: const Center(
+                  child: CircularProgressIndicator()
+                ),
+              ),
+              alternativeChild: Container(height: 200),
+            );
+          },
         ),
       ) 
     );
@@ -75,14 +109,14 @@ class ArticlePreview extends StatelessWidget {
 
   Widget _getPublishDate(context) {
     return Text(
-      article.publishDate.toShortString(),
+      widget.article.publishDate.toShortString(),
       style: Theme.of(context).textTheme.caption,
     );
   }
 
   Widget _getTitle(context) {
     return Text(
-      article.title,
+      widget.article.title,
       style: Theme.of(context).textTheme.headline6,
       overflow: TextOverflow.ellipsis,
       maxLines: 2,
@@ -93,7 +127,7 @@ class ArticlePreview extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.only(top: 8),
       child: Text(
-        article.description,
+        widget.article.description,
         style: Theme.of(context).textTheme.subtitle1,
         overflow: TextOverflow.ellipsis,
         maxLines: 3,
