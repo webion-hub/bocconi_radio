@@ -45,16 +45,17 @@ class ArticlePage extends StatelessWidget {
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(vertical: 16),
-                    child: FutureBuilder(
+                    child: FutureBuilder<List<TextSpan>>(
                       future: article.loadContent(),
-                      builder: (context, AsyncSnapshot<String> snapshot){
+                      builder: (context, snapshot){
                         if(snapshot.hasData){
-                          return Text(
-                            snapshot.data ?? "",
-                            style: Theme.of(context).textTheme.subtitle1,              
+                          return RichText(
+                            text: TextSpan(
+                              style: Theme.of(context).textTheme.subtitle1,              
+                              children: snapshot.data ?? [],
+                            ),
                           );
                         }
-
                         return const LinearProgressIndicator();
                       },
                     ),

@@ -1,8 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:html/dom.dart';
 import 'package:webfeed/webfeed.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as parser;
-import 'article_document.dart';
+import 'package:bocconi_radio/extensions/article_document.dart';
 
 
 class Article {
@@ -34,7 +35,7 @@ class Article {
     articleUrl = Uri.parse(item.link!);
 
 
-  Future<String> loadContent() {
+  Future<List<TextSpan>> loadContent() {
     return http
       .get(articleUrl)
       .then((r) => parser.parse(r.body))
