@@ -26,15 +26,23 @@ extension ArticleDocument on dom.Document {
   List<TextSpan> getArticleContent() {
     return getElementsByTagName('p')
       .getArticleParagraphs()
-      .selectMany((e, i) => e.children)
       .map((e) => TextSpan(
-        text: e.text,
-        style: _getStyleFromElement(e),
+        children: e
+          .nodes
+          .map((c) => TextSpan(
+            text: c.text,
+            style: _getStyleFromElement(c),
+          ))
+          .toList(),
       ))
       .toList();
   }
 
-  TextStyle _getStyleFromElement(dom.Element e) {
+  TextStyle _getStyleFromElement(dom.Node e) {
+    if (e is! dom.Element) {
+      return const TextStyle();
+    }
+
     return const {
       'em': TextStyle(
         fontStyle: FontStyle.italic,
