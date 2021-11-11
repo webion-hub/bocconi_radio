@@ -33,8 +33,12 @@ extension ArticleDocument on dom.Document {
             text: c.text,
             style: _getStyleFromElement(c),
           ))
+          .concat(const [
+            TextSpan(text: '\n\n'),
+          ])
           .toList(),
       ))
+      .skipLast(1)
       .toList();
   }
 
