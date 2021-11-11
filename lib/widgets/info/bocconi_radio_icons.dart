@@ -30,6 +30,8 @@ class BocconiRadio {
   static const String? _kFontPkg = null;
 
   static const IconData youtube = IconData(0xf167, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  // ignore: constant_identifier_names
   static const IconData twitter_squared = IconData(0xf304, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  // ignore: constant_identifier_names
   static const IconData facebook_squared = IconData(0xf308, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }
