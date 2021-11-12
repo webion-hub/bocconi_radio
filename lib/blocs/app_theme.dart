@@ -12,7 +12,7 @@ class AppTheme {
   final _preferences = getIt.getAsync<SharedPreferences>();
   final _updateSubject = BehaviorSubject.seeded($default);
 
-  Stream<ThemeMode> get stream {
+  ValueStream<ThemeMode> get stream {
     return _updateSubject.stream;
   }
 
