@@ -3,6 +3,7 @@ import 'package:bocconi_radio/extensions/iterable_extension.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:html/dom.dart' as dom;
+import 'package:darq/darq.dart';
 
 extension ArticleDocument on dom.Document {
   String? maybeGetArticleImage() {
@@ -28,6 +29,7 @@ extension ArticleDocument on dom.Document {
       .map((e) => TextSpan(
         children: _mapSubnodes(e),
       ))
+      .skipLast(1)
       .toList();
   }
 
@@ -42,6 +44,9 @@ extension ArticleDocument on dom.Document {
           : null,
         style: _getStyleFromElement(c),
       ))
+      .concat(const [
+        TextSpan(text: '\n\n'),
+      ])
       .toList();
   }
 
