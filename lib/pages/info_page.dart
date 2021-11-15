@@ -12,60 +12,71 @@ class InfoPage extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.only(top: 16),
       height: MediaQuery.of(context).size.height - 116,
-      child: ListView(
-        children: const[
-          InfoTitle(title: "Social"),
-          ListTile(
-            onTap: SocialRedirects.facebook,
-            leading: Icon(BocconiRadio.facebook_squared),
-            title: Text("Facebook")
+      child: Column(
+        children: [
+          Text(
+            "Info",
+            style: Theme.of(context).textTheme.headline6,
           ),
-          ListTile(
-            onTap: SocialRedirects.twitter,
-            leading: Icon(BocconiRadio.twitter_squared),
-            title: Text("Twitter")
-          ),
-          ListTile(
-            onTap: SocialRedirects.youtube,
-            leading: Icon(BocconiRadio.youtube),
-            title: Text("Youtube")
-          ),
-          
-          Divider(),
-          
-          InfoTitle(title: "Contatti"), 
-          ListTile(
-            onTap: SocialRedirects.website,
-            leading: Icon(Icons.language_rounded),
-            title: Text("radiobocconi.it"),
-          ),
-          ListTile(
-            onTap: SocialRedirects.email,
-            leading: Icon(Icons.email_rounded),
-            title: Text("radio@radiobocconi.it")
-          ),
-          ListTile(
-            onTap: SocialRedirects.tel,
-            leading: Icon(Icons.call_rounded),
-            title: Text("+39 0258365005")
-          ),
-          ListTile(
-            onTap: SocialRedirects.maps,
-            leading: Icon(Icons.business_rounded),
-            title: Text("Via Bocconi, 12 Milano")
-          ),
-          InfoTitle(title: "Licenze"),
-          ListTile(
-            title: Text("SIAE n. 1187/I/264")
-          ),
-          ListTile(
-            title: Text("SCF n. 170/08")
-          ),
-          
-          Divider(),
-          
-          InfoTitle(title: "Tema"), 
-          ThemeSwitch(),
+          const Divider(),
+          Expanded(
+            child: ListView(
+              children: const[
+                InfoTitle(title: "Social"),
+                ListTile(
+                  onTap: SocialRedirects.facebook,
+                  leading: Icon(BocconiRadio.facebook_squared),
+                  title: Text("Facebook")
+                ),
+                ListTile(
+                  onTap: SocialRedirects.twitter,
+                  leading: Icon(BocconiRadio.twitter_squared),
+                  title: Text("Twitter")
+                ),
+                ListTile(
+                  onTap: SocialRedirects.youtube,
+                  leading: Icon(BocconiRadio.youtube),
+                  title: Text("Youtube")
+                ),
+                
+                Divider(),
+                
+                InfoTitle(title: "Contatti"), 
+                ListTile(
+                  onTap: SocialRedirects.website,
+                  leading: Icon(Icons.language_rounded),
+                  title: Text("radiobocconi.it"),
+                ),
+                ListTile(
+                  onTap: SocialRedirects.email,
+                  leading: Icon(Icons.email_rounded),
+                  title: Text("radio@radiobocconi.it")
+                ),
+                ListTile(
+                  onTap: SocialRedirects.tel,
+                  leading: Icon(Icons.call_rounded),
+                  title: Text("+39 0258365005")
+                ),
+                ListTile(
+                  onTap: SocialRedirects.maps,
+                  leading: Icon(Icons.business_rounded),
+                  title: Text("Via Bocconi, 12 Milano")
+                ),
+                InfoTitle(title: "Licenze"),
+                ListTile(
+                  title: Text("SIAE n. 1187/I/264")
+                ),
+                ListTile(
+                  title: Text("SCF n. 170/08")
+                ),
+                
+                Divider(),
+                
+                InfoTitle(title: "Tema"), 
+                ThemeSwitch(),
+              ],
+            ),
+          )
         ],
       )
     );
