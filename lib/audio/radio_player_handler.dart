@@ -2,7 +2,7 @@ import 'package:audio_service/audio_service.dart';
 import 'package:just_audio/just_audio.dart';
 
 
-class PodcastPlayerHandler extends BaseAudioHandler with SeekHandler {
+class RadioPlayerHandler extends BaseAudioHandler with SeekHandler {
   static const _item = MediaItem(
     id: 'https://5e302ac334abf.streamlock.net/live/live.stream/playlist.m3u8',
     title: "Podcast | Radio bocconi",
@@ -10,7 +10,7 @@ class PodcastPlayerHandler extends BaseAudioHandler with SeekHandler {
 
   final _player = AudioPlayer();
 
-  PodcastPlayerHandler() {
+  RadioPlayerHandler() {
     _player
       .playbackEventStream
       .map(_transformEvent)
