@@ -23,15 +23,12 @@
 ///
 import 'package:flutter/widgets.dart';
 
-class BocconiRadio {
-  BocconiRadio._();
-
+class BocconiRadioIcons {
   static const _kFontFam = 'BocconiRadio';
   static const String? _kFontPkg = null;
 
   static const IconData youtube = IconData(0xf167, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  // ignore: constant_identifier_names
-  static const IconData twitter_squared = IconData(0xf304, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  // ignore: constant_identifier_names
-  static const IconData facebook_squared = IconData(0xf308, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData instagram = IconData(0xf167, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData twitterSquared = IconData(0xf304, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData facebookSquared = IconData(0xf308, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

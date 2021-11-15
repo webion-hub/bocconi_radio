@@ -25,18 +25,23 @@ class InfoPage extends StatelessWidget {
                 InfoTitle(title: "Social"),
                 ListTile(
                   onTap: SocialRedirects.facebook,
-                  leading: Icon(BocconiRadio.facebook_squared),
+                  leading: Icon(BocconiRadioIcons.facebookSquared),
                   title: Text("Facebook")
                 ),
                 ListTile(
                   onTap: SocialRedirects.twitter,
-                  leading: Icon(BocconiRadio.twitter_squared),
+                  leading: Icon(BocconiRadioIcons.twitterSquared),
                   title: Text("Twitter")
                 ),
                 ListTile(
                   onTap: SocialRedirects.youtube,
-                  leading: Icon(BocconiRadio.youtube),
+                  leading: Icon(BocconiRadioIcons.youtube),
                   title: Text("Youtube")
+                ),
+                ListTile(
+                  onTap: SocialRedirects.instagram,
+                  leading: Icon(BocconiRadioIcons.instagram),
+                  title: Text("Instagram")
                 ),
                 
                 Divider(),
@@ -72,7 +77,7 @@ class InfoPage extends StatelessWidget {
                 
                 Divider(),
                 
-                InfoTitle(title: "Tema"), 
+                InfoTitle(title: "Tema"),
                 ThemeSwitch(),
               ],
             ),
@@ -85,6 +90,7 @@ class InfoPage extends StatelessWidget {
 
 
 class SocialRedirects {
+  static instagram() => _launchUrl('https://www.instagram.com/radiobocconi/');
   static facebook() => _launchUrl('https://m.facebook.com/radiobocconi');
   static twitter() => _launchUrl('https://twitter.com/radiobocconi');
   static youtube() => _launchUrl('https://www.youtube.com/c/radiobocconiplayitloud');
