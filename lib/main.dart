@@ -1,49 +1,48 @@
-// ignore_for_file: public_member_api_docs
-
-// FOR MORE EXAMPLES, VISIT THE GITHUB REPOSITORY AT:
-//
-//  https://github.com/ryanheise/audio_service
-//
-// This example implements a minimal audio handler that renders the current
-// media item and playback state to the system notification and responds to 4
-// media actions:
-//
-// - play
-// - pause
-// - seek
-// - stop
-//
-// To run this example, use:
-//
-// flutter run
-
-import 'dart:async';
-
-import 'package:audio_service/audio_service.dart';
-import 'package:bocconi_radio/pages/podcast_page.dart';
+import 'package:bocconi_radio/blocs/app_theme.dart';
+import 'package:bocconi_radio/dependency_injection.dart';
+import 'package:bocconi_radio/widgets/app.dart';
 import 'package:flutter/material.dart';
 
-import 'audio/podcast_player_handler.dart';
-
 Future<void> main() async {
-  audioHandler = await AudioService.init(
-    builder: () => PodcastPlayerHandler(),
-    config: const AudioServiceConfig(
-      androidNotificationChannelId: 'com.devpier.bocconi_radio.channel.audio',
-      androidNotificationChannelName: 'Bocconi Radio',
-      androidNotificationOngoing: true,
-    ),
-  );
+  WidgetsFlutterBinding.ensureInitialized();
+  await configureDependencies();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  final theme = ThemeData();
+  final _appTheme = getIt<AppTheme>();
+
+  MyApp({Key? key})
+    : super(key: key);
+
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Audio Service Demo',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: const PodcastPage(),
+    return StreamBuilder<ThemeMode>(
+      stream: _appTheme.stream,
+      initialData: AppTheme.$default,
+      builder: (context, snapshot) {
+        return MaterialApp(
+          title: 'Bocconi Radio',
+          darkTheme: ThemeData(
+            colorScheme: const ColorScheme.dark(
+              primary: Colors.red,
+              secondary: Colors.red,
+            ),
+            primaryColor: Colors.red,
+            brightness: Brightness.dark,
+            backgroundColor: const Color(0xFF212121),
+          ),
+          theme: ThemeData(
+            primarySwatch: Colors.red,
+            brightness: Brightness.light,
+            backgroundColor: Colors.white,
+          ),
+          themeMode: snapshot.data ?? AppTheme.$default,
+          home: const App(),
+        );
+      }
     );
   }
 }
