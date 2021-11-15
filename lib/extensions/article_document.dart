@@ -39,9 +39,6 @@ extension ArticleDocument on dom.Document {
       .nodes
       .map((c) => TextSpan(
         text: c.text,
-        children: c is dom.Element
-          ? _mapSubnodes(c)
-          : null,
         style: _getStyleFromElement(c),
       ))
       .concat(const [
