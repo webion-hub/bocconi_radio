@@ -21,6 +21,7 @@ class ArticlePage extends StatelessWidget {
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
         child: ListView(
+          shrinkWrap: true,
           children: [
             Hero(
               tag: 'article-image-${article.title}',
