@@ -18,45 +18,49 @@ class ArticlePreview extends StatefulWidget {
 }
 
 class _ArticlePreviewState extends State<ArticlePreview> {
+  final borderRadius = BorderRadius.circular(8);
 
   @override
   Widget build(BuildContext context) {
     return Card(
+      margin: const EdgeInsets.only(left: 16, right: 16, top: 16),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: borderRadius,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+      child: Stack(
         children: [
-          Hero(
-            tag: 'article-image-${widget.article.title}',
-            child: _getCover(),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Hero(
+                tag: 'article-image-${widget.article.title}',
+                child: _getCover(),
+              ),
+              Container(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _getTitle(context),
+                    _getPublishDate(context),
+                    _getTextPreview(context),
+                  ],
+                ),
+              ),
+            ],
           ),
-          Container(
-            padding: const EdgeInsets.only(
-              left: 16,
-              right: 16,
-              top: 8,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _getTitle(context),
-                _getPublishDate(context),
-                _getTextPreview(context),
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.only(right: 8),
-            child: TextButton(
-              child: const Text('APRI'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ArticlePage(article: widget.article)),
-                );
-              },
+          Positioned.fill(
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                borderRadius: borderRadius,
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ArticlePage(article: widget.article)),
+                  );
+                },
+              )
             ),
           )
         ],
@@ -70,10 +74,8 @@ class _ArticlePreviewState extends State<ArticlePreview> {
       child: ImageWithLoading(
         height: 200,
         src: widget.article.imageUrl!,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(8),
-          topRight: Radius.circular(8),
-        )
+        borderRadius: borderRadius,
+
       )
     );
   }
