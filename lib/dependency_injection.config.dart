@@ -10,7 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart' as _i5;
 
 import 'blocs/app_theme.dart' as _i3;
 import 'blocs/blog.dart' as _i4;
-import 'modules/shared_preferences.dart'
+import 'modules/shared_preferences_module.dart'
     as _i6; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
