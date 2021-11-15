@@ -27,18 +27,26 @@ extension ArticleDocument on dom.Document {
     return getElementsByTagName('p')
       .getArticleParagraphs()
       .map((e) => TextSpan(
-        children: e
-          .nodes
-          .map((c) => TextSpan(
-            text: c.text,
-            style: _getStyleFromElement(c),
-          ))
-          .concat(const [
-            TextSpan(text: '\n\n'),
-          ])
-          .toList(),
+        children: _mapSubnodes(e),
       ))
       .skipLast(1)
+      .toList();
+  }
+
+
+  List<TextSpan>? _mapSubnodes(dom.Element e) {
+    return e
+      .nodes
+      .map((c) => TextSpan(
+        text: c.text,
+        children: c is dom.Element
+          ? _mapSubnodes(c)
+          : null,
+        style: _getStyleFromElement(c),
+      ))
+      .concat(const [
+        TextSpan(text: '\n\n'),
+      ])
       .toList();
   }
 

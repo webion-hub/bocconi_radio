@@ -43,6 +43,8 @@ dependencies:
   url_launcher:
   shared_preferences:
   darq:
+  audio_service:
+  just_audio:
 
 dev_dependencies:
   injectable_generator:

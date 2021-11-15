@@ -5,13 +5,12 @@ import 'package:bocconi_radio/widgets/util.dart';
 import 'package:bocconi_radio/extensions/date_time_extension.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class ArticlePage extends StatelessWidget {
-  Article article;
+  final Article article;
 
-  ArticlePage({ 
+  const ArticlePage({ 
+    Key? key,
     required this.article,
-    Key? key 
   }) : super(key: key);
 
   @override
@@ -31,18 +30,18 @@ class ArticlePage extends StatelessWidget {
               padding: const EdgeInsets.only(
                 left: 32,
                 right: 32,
-                top: 16
+                top: 16,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     article.title,
-                    style: Theme.of(context).textTheme.headline4,              
+                    style: Theme.of(context).textTheme.headline4,
                   ),
                   Text(
                     article.publishDate.toShortString(),
-                    style: Theme.of(context).textTheme.caption,              
+                    style: Theme.of(context).textTheme.caption,
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(vertical: 16),
@@ -52,7 +51,7 @@ class ArticlePage extends StatelessWidget {
                         if(snapshot.hasData){
                           return RichText(
                             text: TextSpan(
-                              style: Theme.of(context).textTheme.subtitle1,              
+                              style: Theme.of(context).textTheme.subtitle1,
                               children: snapshot.data ?? [],
                             ),
                           );
@@ -63,7 +62,7 @@ class ArticlePage extends StatelessWidget {
                   )  
                 ],
               ),
-            ),                    
+            ),
           ],
         ),
       ),

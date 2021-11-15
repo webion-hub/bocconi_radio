@@ -19,14 +19,14 @@ class _ThemeSwitchState extends State<ThemeSwitch> {
     return StreamBuilder<ThemeMode>(
       stream: _appTheme.stream,
       builder: (context, snapshot) {
-        final value =
+        final isUsingDarkMode =
           snapshot.data?.isDark ?? false;
-        
+
         return SwitchListTile(
           title: const Text('Tema scuro'),
           secondary: const Icon(Icons.dark_mode_rounded),
           activeColor: Theme.of(context).primaryColor,
-          value: value,
+          value: isUsingDarkMode,
           onChanged: (value) {
             _appTheme.useDarkMode(value);
           }
