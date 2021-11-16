@@ -38,25 +38,19 @@ class _BlogPreviewState extends State<StatefulWidget> {
     return StreamBuilder<Iterable<Article>>(
       stream: _articles.stream,
       builder: (context, snapshot) {
-        switch (snapshot.connectionState) {
-          case ConnectionState.done:
-          case ConnectionState.active:
-            break;
-
-          case ConnectionState.waiting:
-          default:
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+        if (_shouldDisplayLoadingRing(snapshot.connectionState)) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         }
 
         if (!snapshot.hasData) {
-          return const Text('Nothing');
+          return const Text('No articles to show');
         }
         
         final articles = snapshot.data;
         if (articles == null) {
-          return const Text('Error');
+          return const Text('Error when fetching articles');
         }
 
         return InfiniteListView(
@@ -83,6 +77,18 @@ class _BlogPreviewState extends State<StatefulWidget> {
     _articles.add(
       _articles.value.concat(articles)
     );
+  }
+
+  bool _shouldDisplayLoadingRing(ConnectionState state) {
+    switch (state) {
+      case ConnectionState.done:
+      case ConnectionState.active:
+        return false;
+
+      case ConnectionState.waiting:
+      default:
+        return true;
+    }
   }
 }
 
