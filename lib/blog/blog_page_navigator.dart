@@ -14,6 +14,10 @@ class BlogPageNavigator {
 
   BlogPageNavigator(this._blog);
 
+  void refreshArticles() async {
+    _currentOffset = -12;
+    fetchNextArticles();
+  }
 
   void fetchNextArticles() async {
     _fetchArticles(direction: 1);
