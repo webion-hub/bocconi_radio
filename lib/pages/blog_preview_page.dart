@@ -1,9 +1,13 @@
+import 'dart:async';
+
 import 'package:bocconi_radio/blog/article.dart';
 import 'package:bocconi_radio/blocs/blog.dart';
 import 'package:bocconi_radio/blog/blog_page_navigator.dart';
 import 'package:bocconi_radio/dependency_injection.dart';
 import 'package:bocconi_radio/widgets/blog/article_preview.dart';
+import 'package:darq/darq.dart';
 import 'package:flutter/material.dart';
+import 'package:rxdart/rxdart.dart';
 
 
 class BlogPreviewPage extends StatefulWidget {
@@ -16,9 +20,15 @@ class BlogPreviewPage extends StatefulWidget {
 
 class _BlogPreviewState extends State<StatefulWidget> {
   final _blogNavigator = BlogPageNavigator(getIt<Blog>());
-  List<Article> articles = [];
+  final _articles = BehaviorSubject.seeded(
+    const Iterable<Article>.empty()
+  );
 
   _BlogPreviewState() {
+    _blogNavigator
+      .articles
+      .listen(_onArticlesReceived);
+
     _blogNavigator.fetchNextArticles();
   }
 
@@ -26,7 +36,7 @@ class _BlogPreviewState extends State<StatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<Iterable<Article>>(
-      stream: _blogNavigator.blog.articles,
+      stream: _articles.stream,
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.done:
@@ -44,18 +54,16 @@ class _BlogPreviewState extends State<StatefulWidget> {
           return const Text('Nothing');
         }
         
-        final newArticles = snapshot.data;
-        if (newArticles == null) {
+        final articles = snapshot.data;
+        if (articles == null) {
           return const Text('Error');
         }
 
-        articles.addAll(newArticles);
-
-        return InfiniteListView(     
+        return InfiniteListView(
           itemCount: articles.length,
           onRefresh: () async {
-            articles = [];
-            _blogNavigator.refreshArticles();
+            _articles.add([]);
+            await _blogNavigator.refreshArticles();
           },
           onScrollEnd: () {
             _blogNavigator.fetchNextArticles();
@@ -67,6 +75,13 @@ class _BlogPreviewState extends State<StatefulWidget> {
           }
         );
       }
+    );
+  }
+
+
+  void _onArticlesReceived(Iterable<Article> articles) {
+    _articles.add(
+      _articles.value.concat(articles)
     );
   }
 }
