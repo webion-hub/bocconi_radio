@@ -1,4 +1,6 @@
 import 'package:bocconi_radio/blocs/blog.dart';
+import 'article.dart';
+
 
 class BlogPageNavigator {  
   final Blog _blog;
@@ -10,29 +12,30 @@ class BlogPageNavigator {
   bool get showLeft => _showLeft;
   bool get showRight => _showRight;
   Blog get blog => _blog;
+  Stream<Iterable<Article>> get articles => _blog.articles;
 
 
   BlogPageNavigator(this._blog);
 
-  void refreshArticles() async {
+  Future refreshArticles() {
     _currentOffset = -12;
-    fetchNextArticles();
+    return fetchNextArticles();
   }
 
-  void fetchNextArticles() async {
-    _fetchArticles(direction: 1);
+  Future fetchNextArticles() {
+    return _fetchArticles(direction: 1);
   }
 
-  void fetchPreviousArticles() async {
-    _fetchArticles(direction: -1);
+  Future fetchPreviousArticles() {
+    return _fetchArticles(direction: -1);
   }
 
 
-  void _fetchArticles({
+  Future _fetchArticles({
     required int direction
-  }) async {
+  }) {
     _currentOffset += direction * 12;
-    _blog.fetchArticles(
+    return _blog.fetchArticles(
       start: _currentOffset,
     );
   }  
