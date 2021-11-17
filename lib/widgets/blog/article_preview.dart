@@ -2,7 +2,7 @@ import 'package:bocconi_radio/blog/article.dart';
 import 'package:bocconi_radio/extensions/date_time_extension.dart';
 import 'package:bocconi_radio/pages/article_page.dart';
 import 'package:bocconi_radio/widgets/image_with_loading.dart';
-import 'package:bocconi_radio/widgets/util.dart';
+import 'package:bocconi_radio/widgets/util/maybe_show.dart';
 import 'package:flutter/material.dart';
 
 class ArticlePreview extends StatefulWidget {
