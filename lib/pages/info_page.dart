@@ -1,6 +1,7 @@
 import 'package:bocconi_radio/widgets/info/bocconi_radio_icons.dart';
 import 'package:bocconi_radio/widgets/info/info_title.dart';
 import 'package:bocconi_radio/widgets/theme_switch.dart';
+import 'package:darq/src/extensions/concat.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -79,11 +80,24 @@ class InfoPage extends StatelessWidget {
                 
                 InfoTitle(title: "Tema"),
                 ThemeSwitch(),
+
+                Divider(),
+              ] + [
+                ListTile(
+                  onTap: () => _showAboutDialog(context),
+                  title: const Text("Informazioni sull'app"),
+                )
               ],
             ),
           )
         ],
       )
+    );
+  }
+
+  static void _showAboutDialog(BuildContext context) {
+    showAboutDialog(
+      context: context,
     );
   }
 }
