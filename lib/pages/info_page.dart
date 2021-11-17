@@ -1,7 +1,6 @@
 import 'package:bocconi_radio/widgets/info/bocconi_radio_icons.dart';
 import 'package:bocconi_radio/widgets/info/info_title.dart';
 import 'package:bocconi_radio/widgets/theme_switch.dart';
-import 'package:darq/src/extensions/concat.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
