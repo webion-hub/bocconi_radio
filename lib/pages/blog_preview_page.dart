@@ -5,6 +5,7 @@ import 'package:bocconi_radio/blocs/blog.dart';
 import 'package:bocconi_radio/blog/blog_page_navigator.dart';
 import 'package:bocconi_radio/dependency_injection.dart';
 import 'package:bocconi_radio/widgets/blog/article_preview.dart';
+import 'package:bocconi_radio/widgets/infinite_list_view.dart';
 import 'package:darq/darq.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
@@ -38,6 +39,7 @@ class _BlogPreviewState extends State<StatefulWidget> {
     return StreamBuilder<Iterable<Article>>(
       stream: _articles.stream,
       builder: (context, snapshot) {
+        
         if (_shouldDisplayLoadingRing(snapshot.connectionState)) {
           return const Center(
             child: CircularProgressIndicator(),
@@ -89,38 +91,5 @@ class _BlogPreviewState extends State<StatefulWidget> {
       default:
         return true;
     }
-  }
-}
-
-class InfiniteListView extends StatelessWidget {
-  final Future<void> Function() onRefresh;
-  final Function() onScrollEnd;
-  final Function(BuildContext, int) itemBuilder;
-  final int itemCount;
-
-  const InfiniteListView({ 
-    required this.onRefresh,
-    required this.onScrollEnd,
-    required this.itemBuilder,
-    required this.itemCount,
-    Key? key 
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return RefreshIndicator(          
-      onRefresh: onRefresh,
-      child: ListView.builder(
-        itemCount: itemCount,
-        shrinkWrap: true,
-        itemBuilder: (context, i) {
-          if(i >= itemCount - 6) {
-            onScrollEnd();
-          }
-
-          return itemBuilder(context, i);
-        }
-      ),
-    );
   }
 }

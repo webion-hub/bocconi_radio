@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:bocconi_radio/blog/article.dart';
+import 'package:bocconi_radio/widgets/bottom_bar.dart';
 import 'package:bocconi_radio/widgets/custom_appbar.dart';
 import 'package:bocconi_radio/widgets/image_with_loading.dart';
 import 'package:bocconi_radio/widgets/util/maybe_show.dart';
@@ -17,6 +20,11 @@ class ArticlePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppbar(),
+      bottomNavigationBar: BottomBar(
+        onPressed: (index){
+          Navigator.pop(context, index);
+        }
+      ),
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
         child: ListView(

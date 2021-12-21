@@ -1,3 +1,5 @@
+import 'package:bocconi_radio/blocs/bottom_bar_bloc.dart';
+import 'package:bocconi_radio/dependency_injection.dart';
 import 'package:flutter/material.dart';
 
 class BottomBar extends StatefulWidget {
@@ -13,34 +15,40 @@ class BottomBar extends StatefulWidget {
 }
 
 class _BottomBarState extends State<BottomBar> {
-  int _selectedIndex = 0;
+  final _bottomBar = getIt<BottomBarBloc>();
  
   void _onItemTapped(int index) {
     widget.onPressed(index);
-    setState(() {
-      _selectedIndex = index;
-    });
+    _bottomBar.pushIndex(index);
   }
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: Icon(Icons.radio_rounded),
-          label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.feed_rounded),
-          label: 'Blog',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.videocam_rounded),
-          label: 'Webcam',
-        ),
-      ],
-      currentIndex: _selectedIndex,
-      onTap: _onItemTapped,
+    return Hero(
+      tag: "bottombar",
+      child: StreamBuilder(
+        stream: _bottomBar.indexes,
+        builder: (context, AsyncSnapshot<int> snapshot) {
+          return BottomNavigationBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.radio_rounded),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.feed_rounded),
+                label: 'Blog',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.videocam_rounded),
+                label: 'Webcam',
+              ),
+            ],
+            currentIndex: snapshot.data ?? _bottomBar.getLastIndex(),
+            onTap: _onItemTapped,
+          );
+      },
+    )
     );
   }
 }
