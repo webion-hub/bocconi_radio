@@ -3,10 +3,10 @@ import 'package:bocconi_radio/dependency_injection.dart';
 import 'package:flutter/material.dart';
 
 class BottomBar extends StatefulWidget {
-  final Function(int) onPressed;
+  final Function(int)? onPressed;
   
   const BottomBar({ 
-    required this.onPressed, 
+    this.onPressed, 
     Key ? key 
   }) : super(key: key);
 
@@ -18,7 +18,9 @@ class _BottomBarState extends State<BottomBar> {
   final _bottomBar = getIt<BottomBarBloc>();
  
   void _onItemTapped(int index) {
-    widget.onPressed(index);
+    if(widget.onPressed != null) {
+      widget.onPressed!(index);
+    }
     _bottomBar.pushIndex(index);
   }
 
