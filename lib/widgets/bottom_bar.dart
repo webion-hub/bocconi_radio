@@ -41,10 +41,6 @@ class _BottomBarState extends State<BottomBar> {
                 icon: Icon(Icons.feed_rounded),
                 label: 'Blog',
               ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.videocam_rounded),
-                label: 'Webcam',
-              ),
             ],
             currentIndex: snapshot.data ?? _bottomBar.getLastIndex(),
             onTap: _onItemTapped,

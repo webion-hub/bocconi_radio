@@ -27,8 +27,7 @@ class _AppState extends State<App> {
     Widget getBody(int pageIndex){
       final widgets = {
         0: PodcastPage(),
-        1: BlogPreviewPage(),
-        2: WebcamPage(),
+        1: const BlogPreviewPage(),
       };
 
       return widgets[pageIndex] ?? const HomePage();
