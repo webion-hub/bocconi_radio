@@ -1,14 +1,10 @@
-import 'dart:developer';
-
 import 'package:bocconi_radio/dependency_injection.dart';
 import 'package:bocconi_radio/pages/blog_preview_page.dart';
 import 'package:bocconi_radio/pages/podcast_page.dart';
-import 'package:bocconi_radio/pages/webcam_page.dart';
 import 'package:bocconi_radio/widgets/bottom_bar.dart';
 import 'package:bocconi_radio/pages/home_page.dart';
 import 'package:bocconi_radio/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
-import 'package:rxdart/subjects.dart';
 import 'package:bocconi_radio/blocs/bottom_bar_bloc.dart';
 
 class App extends StatefulWidget {
