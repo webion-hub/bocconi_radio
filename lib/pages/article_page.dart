@@ -1,7 +1,6 @@
 import 'package:bocconi_radio/blog/article.dart';
-import 'package:bocconi_radio/widgets/bottom_bar.dart';
-import 'package:bocconi_radio/widgets/custom_appbar.dart';
 import 'package:bocconi_radio/widgets/image_with_loading.dart';
+import 'package:bocconi_radio/widgets/page_container.dart';
 import 'package:bocconi_radio/widgets/text_with_loading.dart';
 import 'package:bocconi_radio/widgets/util/maybe_show.dart';
 import 'package:bocconi_radio/extensions/date_time_extension.dart';
@@ -17,13 +16,10 @@ class ArticlePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const CustomAppbar(),
-      bottomNavigationBar: BottomBar(
-        onPressed: (index){
-          Navigator.pop(context, index);
-        }
-      ),
+    return PageContainer(
+      onBottomBarPressed: (index){
+        Navigator.pop(context, index);
+      },
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
         child: ListView(

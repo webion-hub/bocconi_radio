@@ -45,8 +45,8 @@ class _BottomBarState extends State<BottomBar> {
             currentIndex: snapshot.data ?? _bottomBar.getLastIndex(),
             onTap: _onItemTapped,
           );
-      },
-    )
+        },
+      )
     );
   }
 }
