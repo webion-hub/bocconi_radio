@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.red,
             brightness: Brightness.light,
             backgroundColor: Colors.white,
+            bottomAppBarColor: Colors.grey[200]
           ),
           themeMode: snapshot.data ?? AppTheme.$default,
           home: const App(),

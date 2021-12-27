@@ -1,3 +1,4 @@
+import 'package:bocconi_radio/widgets/audio_overlay.dart';
 import 'package:bocconi_radio/widgets/bottom_bar.dart';
 import 'package:bocconi_radio/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,15 @@ class PageContainer extends StatelessWidget {
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: const CustomAppbar(),
       bottomNavigationBar: BottomBar(onPressed: onBottomBarPressed),
-      body: body
+      body: Stack(
+        children: [
+          body,
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: AudioOverlay(),
+          )
+        ],
+      ),
     );
   }
 }
