@@ -1,9 +1,8 @@
-import 'dart:developer';
-
 import 'package:bocconi_radio/blog/article.dart';
 import 'package:bocconi_radio/widgets/bottom_bar.dart';
 import 'package:bocconi_radio/widgets/custom_appbar.dart';
 import 'package:bocconi_radio/widgets/image_with_loading.dart';
+import 'package:bocconi_radio/widgets/text_with_loading.dart';
 import 'package:bocconi_radio/widgets/util/maybe_show.dart';
 import 'package:bocconi_radio/extensions/date_time_extension.dart';
 import 'package:flutter/material.dart';
@@ -53,18 +52,16 @@ class ArticlePage extends StatelessWidget {
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(vertical: 16),
-                    child: FutureBuilder<List<TextSpan>>(
+                    child: TextWithLoading(
+                      skeletonHeight: 200,
                       future: article.loadContent(),
-                      builder: (context, snapshot){
-                        if(snapshot.hasData){
-                          return RichText(
-                            text: TextSpan(
-                              style: Theme.of(context).textTheme.subtitle1,
-                              children: snapshot.data ?? [],
-                            ),
-                          );
-                        }
-                        return const LinearProgressIndicator();
+                      builder: (text){
+                        return RichText(
+                          text: TextSpan(
+                            style: Theme.of(context).textTheme.subtitle1,
+                            children: text,
+                          ),
+                        );
                       },
                     ),
                   )  

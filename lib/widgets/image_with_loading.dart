@@ -1,3 +1,4 @@
+import 'package:bocconi_radio/widgets/skeleton.dart';
 import 'package:bocconi_radio/widgets/util/maybe_show.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
@@ -29,28 +30,35 @@ class ImageWithLoading extends StatelessWidget {
       ),
     );
 
-    return Container(
+    return SizedBox(
       height: height,
-      decoration: BoxDecoration(
-        borderRadius: borderRadius,
-        image: DecorationImage(
-          fit: BoxFit.cover,
-          image: image
-        )
-      ),
-      child: StreamBuilder(
-        stream: _streamImageLoader,
-        initialData: false,
-        builder: (context, AsyncSnapshot snapshot){
-          return MaybeShow(
-            show: !snapshot.data, 
-            child: const Center(
-              child: CircularProgressIndicator()
+      child: Stack(
+        children: [
+          StreamBuilder(
+            stream: _streamImageLoader,
+            initialData: false,
+            builder: (context, AsyncSnapshot snapshot){
+              return MaybeShow(
+                show: !snapshot.data, 
+                child: Skeleton(
+                  borderRadius: borderRadius,
+                ),
+              );
+            },
+          ),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: borderRadius,
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: image
+              )
             ),
-            alternativeChild: Container(),
-          );
-        },
+          ),
+        ],
       ),
     );
   }
 }
+
+

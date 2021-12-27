@@ -45,6 +45,7 @@ dependencies:
   darq:
   audio_service:
   just_audio:
+  shimmer: ^2.0.0
 
 dev_dependencies:
   injectable_generator:
