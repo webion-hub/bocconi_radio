@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 
 class BottomBar extends StatefulWidget {
   final Function(int)? onPressed;
-  
-  const BottomBar({ 
-    this.onPressed, 
-    Key ? key 
+
+  const BottomBar({
+    this.onPressed,
+    Key ? key
   }) : super(key: key);
 
   @override

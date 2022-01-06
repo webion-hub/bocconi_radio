@@ -19,7 +19,7 @@ class AudioOverlay extends StatelessWidget {
           .map((state) => state.playing)
           .distinct(),
 
-        builder: (context, snapshot){
+        builder: (context, snapshot) {
           final isPlaying = snapshot.data ?? lastPlayingStatus;
           lastPlayingStatus = isPlaying;
 
@@ -35,15 +35,9 @@ class AudioOverlay extends StatelessWidget {
 
                   Container(
                     margin: const EdgeInsets.only(left: 16),
-                    child: StreamBuilder<MediaItem?>(
-                      stream: _audioHandler.mediaItem,
-                      builder: (context, snapshot) {
-                        final mediaItem = snapshot.data;
-                        return Text(
-                          mediaItem?.title ?? '',
-                          style: Theme.of(context).textTheme.bodyText2,
-                        );
-                      },
+                    child: Text(
+                      'Radio Bocconi',
+                      style: Theme.of(context).textTheme.bodyText2,
                     )
                   )
                 ],

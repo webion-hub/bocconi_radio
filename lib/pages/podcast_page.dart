@@ -1,12 +1,11 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:bocconi_radio/dependency_injection.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 
 class PodcastPage extends StatelessWidget {
   final _audioHandler = getIt<AudioHandler>();
-  
+
   PodcastPage({Key? key})
     : super(key: key);
 
@@ -25,7 +24,7 @@ class PodcastPage extends StatelessWidget {
             builder: (context, snapshot) {
               final playing =
                 snapshot.data ?? false;
-              
+
               return _controlButtons(playing, context); 
             },
           ),
@@ -33,15 +32,9 @@ class PodcastPage extends StatelessWidget {
             "Stai ascoltando ",
             style: Theme.of(context).textTheme.bodyText2,
           ),
-          StreamBuilder<MediaItem?>(
-            stream: _audioHandler.mediaItem,
-            builder: (context, snapshot) {
-              final mediaItem = snapshot.data;
-              return Text(
-                mediaItem?.title ?? '',
-                style: Theme.of(context).textTheme.subtitle1,
-              );
-            },
+          Text(
+            'Radio Bocconi',
+            style: Theme.of(context).textTheme.subtitle1,
           ),
         ],
       )
