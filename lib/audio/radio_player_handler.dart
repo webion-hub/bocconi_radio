@@ -5,7 +5,7 @@ import 'package:just_audio/just_audio.dart';
 class RadioPlayerHandler extends BaseAudioHandler with SeekHandler {
   static const _item = MediaItem(
     id: 'https://5e302ac334abf.streamlock.net/live/live.stream/playlist.m3u8',
-    title: "Podcast | Radio bocconi",
+    title: "Radio bocconi",
   );
 
   final _player = AudioPlayer();
