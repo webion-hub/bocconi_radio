@@ -3,9 +3,13 @@ import 'package:just_audio/just_audio.dart';
 
 
 class RadioPlayerHandler extends BaseAudioHandler with SeekHandler {
-  static const _item = MediaItem(
+  static final _item = MediaItem(
     id: 'https://5e302ac334abf.streamlock.net/live/live.stream/playlist.m3u8',
     title: "Radio bocconi",
+    artUri: Uri.https(
+      'www.radiobocconi.it',
+      '/players/microfono_rb.jpg'
+    ),
   );
 
   final _player = AudioPlayer();
@@ -44,7 +48,6 @@ class RadioPlayerHandler extends BaseAudioHandler with SeekHandler {
   PlaybackState _transformEvent(PlaybackEvent event) {
     return PlaybackState(
       controls: [
-        MediaControl.rewind,
         _player.playing
           ? MediaControl.pause
           : MediaControl.play,
@@ -53,10 +56,9 @@ class RadioPlayerHandler extends BaseAudioHandler with SeekHandler {
       ],
       systemActions: const {
         MediaAction.seek,
-        MediaAction.seekForward,
-        MediaAction.seekBackward,
+        MediaAction.fastForward,
       },
-      androidCompactActionIndices: const [0, 1, 3],
+      androidCompactActionIndices: const [0, 1, 2],
       processingState: const {
         ProcessingState.idle: AudioProcessingState.idle,
         ProcessingState.loading: AudioProcessingState.loading,
