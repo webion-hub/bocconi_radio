@@ -24,12 +24,16 @@ extension ArticleDocument on dom.Document {
   }
 
   List<TextSpan> getArticleContent() {
-    return getElementsByTagName('p')
+    final elements = getElementsByTagName('p')
       .getArticleParagraphs()
       .map((e) => TextSpan(
         children: _mapSubnodes(e),
-      ))
-      .skipLast(1)
+      ));
+
+    return elements
+      .skipLast(
+        _countEmptyLinesAtArticleEnd(elements)
+      )
       .toList();
   }
 
@@ -60,5 +64,17 @@ extension ArticleDocument on dom.Document {
         fontWeight: FontWeight.bold,
       ),
     }[e.localName] ?? const TextStyle();
+  }
+
+  int _countEmptyLinesAtArticleEnd(Iterable<TextSpan> elements) {
+    return elements
+      .takeLastWhile((e) => e
+        .children!
+        .every((c) => c
+          .toPlainText()
+          .contains(RegExp(r'^[\n  ]+$'))
+        )
+      )
+      .count();
   }
 }

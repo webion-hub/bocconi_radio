@@ -17,7 +17,7 @@ class TextWithLoading extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder<List<TextSpan>>(
       future: future,
-      builder: (context, snapshot){
+      builder: (context, snapshot) {
         if(snapshot.hasData){
           return builder(snapshot.data ?? []);
         }
