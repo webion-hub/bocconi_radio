@@ -20,7 +20,8 @@ class ArticlePage extends StatelessWidget {
       onBottomBarPressed: (index){
         Navigator.pop(context, index);
       },
-      body: SizedBox(
+      body: Container(
+        padding: const EdgeInsets.only(bottom: 48),
         height: MediaQuery.of(context).size.height,
         child: ListView(
           shrinkWrap: true,
@@ -49,7 +50,6 @@ class ArticlePage extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     child: TextWithLoading(
-                      skeletonHeight: 200,
                       future: article.loadContent(),
                       builder: (text){
                         return RichText(
