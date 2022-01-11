@@ -25,12 +25,12 @@ class InfoPage extends StatelessWidget {
                 InfoTitle(title: "Social"),
                 ListTile(
                   onTap: SocialRedirects.facebook,
-                  leading: Icon(BocconiRadioIcons.facebookSquared),
+                  leading: Icon(BocconiRadioIcons.facebook),
                   title: Text("Facebook")
                 ),
                 ListTile(
                   onTap: SocialRedirects.twitter,
-                  leading: Icon(BocconiRadioIcons.twitterSquared),
+                  leading: Icon(BocconiRadioIcons.twitter),
                   title: Text("Twitter")
                 ),
                 ListTile(
