@@ -4,13 +4,11 @@ import 'package:flutter/material.dart';
 class TextWithLoading extends StatelessWidget {
   final Widget Function(List<TextSpan>) builder;
   final Future<List<TextSpan>> future;
-  final double skeletonHeight;
 
   const TextWithLoading({
     Key? key,
     required this.future,
     required this.builder,
-    this.skeletonHeight = 20,
   }) : super(key: key);
 
   @override
@@ -22,11 +20,23 @@ class TextWithLoading extends StatelessWidget {
           return builder(snapshot.data ?? []);
         }
 
-        return SizedBox(
-          height: skeletonHeight,
-          child: const Skeleton(),
+        return Column(
+          children: [
+            for (int i = 0; i < 10; i++) 
+              getSkeletonRow()
+          ],
         );
       },
+    );
+  }
+
+  Widget getSkeletonRow() {
+    return Container(
+      margin: const EdgeInsets.only(top: 4),
+      height: 16,
+      child: Skeleton(
+        borderRadius: BorderRadius.circular(4),
+      ),
     );
   }
 }
