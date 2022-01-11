@@ -24,7 +24,7 @@ class AudioOverlay extends StatelessWidget {
           lastPlayingStatus = isPlaying;
 
           return SizedBox(
-            height: 64,
+            height: 48,
             child: Material(
               color: Theme.of(context).bottomAppBarColor,
               child: Row(
