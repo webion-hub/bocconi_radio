@@ -32,8 +32,8 @@ class ArticlePage extends StatelessWidget {
             ),
             Container(
               padding: const EdgeInsets.only(
-                left: 32,
-                right: 32,
+                left: 16,
+                right: 16,
                 top: 16,
               ),
               child: Column(
