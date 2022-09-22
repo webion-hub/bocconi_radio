@@ -57,5 +57,7 @@
 		<string>mailto</string>
 		<string>geo</string>
 	</array>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
 </dict>
 </plist>

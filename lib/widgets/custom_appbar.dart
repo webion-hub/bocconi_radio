@@ -9,6 +9,15 @@ class CustomAppbar extends StatelessWidget with PreferredSizeWidget{
     return Hero(
       tag: "appbar",
       child: AppBar(
+        title: Column(
+          children: [
+            const Text('Radio Bocconi'),
+            Text(
+              'Powered by Webion Srl', 
+              style: Theme.of(context).textTheme.caption,
+            ),
+          ]
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.info_rounded),
