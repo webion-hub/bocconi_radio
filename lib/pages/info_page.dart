@@ -92,13 +92,17 @@ class InfoPage extends StatelessWidget {
       ),
       applicationVersion: '1.0.0',
       applicationLegalese: '© 2022 Webion SRL',
+      applicationName: 'Radio Bocconi',
       children: [
         Container(
             margin: const EdgeInsets.only(top: 16),
             child: RichText(
               text: TextSpan(
               children: [
-                const TextSpan(text: promotionMessage),
+                TextSpan(
+                  text: promotionMessage,
+                  style: Theme.of(context).textTheme.bodyMedium  
+                ),
                 TextSpan(
                   text: 'webion.it',
                   style: const TextStyle(
