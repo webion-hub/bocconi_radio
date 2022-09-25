@@ -24,7 +24,9 @@ extension ArticleDocument on dom.Document {
   }
 
   List<TextSpan> getArticleContent() {
-    final elements = getElementsByTagName('p')
+    final elements = getElementsByClassName('inner portfolio')
+      .map((e) => e.getElementsByTagName('p'))
+      .flatten()
       .getArticleParagraphs()
       .map((e) => TextSpan(
         children: _mapSubnodes(e),
