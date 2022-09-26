@@ -10,12 +10,14 @@ class CustomAppbar extends StatelessWidget with PreferredSizeWidget{
       tag: "appbar",
       child: AppBar(
         title: Column(
-          children: [
-            const Text('Radio Bocconi'),
+          children: const [
+            Text('Radio Bocconi'),
             Text(
               'Powered by Webion Srl', 
-              style: Theme.of(context).textTheme.caption,
-            ),
+              style: TextStyle(
+                fontSize: 10
+              ),
+            )
           ]
         ),
         actions: [

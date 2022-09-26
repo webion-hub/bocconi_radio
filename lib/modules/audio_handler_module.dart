@@ -10,7 +10,7 @@ abstract class AudioHandlerModule {
       builder: () => RadioPlayerHandler(),
       config: const AudioServiceConfig(
         androidNotificationChannelId: 'com.devpier.bocconi_radio.channel.audio',
-        androidNotificationChannelName: 'Bocconi Radio',
+        androidNotificationChannelName: 'Radio Bocconi',
         androidNotificationOngoing: true,
       ),
     );
