@@ -30,12 +30,27 @@ dependencies:
   flutter:
     sdk: flutter
 
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  webfeed: ^0.7.0
+  test:
+  http:
+  html:
+  rxdart: ^0.27.2
+  injectable:
+  get_it:
+  url_launcher:
+  shared_preferences:
+  darq:
+  audio_service:
+  just_audio:
+  shimmer: ^2.0.0
 
 dev_dependencies:
+  injectable_generator:
+  build_runner:
+
   flutter_test:
     sdk: flutter
 
@@ -51,12 +66,16 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
+  assets:
+    - assets/images/logo.png
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
+  fonts:
+    - family:  BocconiRadio
+      fonts:
+        - asset: fonts/BocconiRadio.ttf
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
