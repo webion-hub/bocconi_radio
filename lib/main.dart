@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
       initialData: AppTheme.$default,
       builder: (context, snapshot) {
         return MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: 'Bocconi Radio',
           darkTheme: ThemeData(
             colorScheme: const ColorScheme.dark(
